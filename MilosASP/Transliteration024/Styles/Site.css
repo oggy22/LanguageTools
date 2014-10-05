@@ -1,0 +1,363 @@
+﻿/* DEFAULTS
+----------------------------------------------------------*/
+
+body   
+{
+    background: #ffffff;
+    font-size: .80em;
+    /*font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;*/
+    font-family:"lucida grande", "Tahoma", "Verdana", "Arial", "Sans-Serif";
+    margin: 0px;
+    padding: 0px;
+    color: #f000ff;
+}
+
+a:link, a:visited
+{
+    color: #ffff0f;
+}
+
+a:hover
+{
+    color: #1d60ff;
+    text-decoration: none;
+}
+
+a:active
+{
+    color: #f0ffff;
+}
+
+p
+{
+    margin-bottom: 10px;
+    line-height: 1.6em;
+}
+
+
+/* HEADINGS   
+----------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6
+{
+    font-size: 1.5em;
+    color: #666666;
+    font-variant: normal;
+    text-transform: none;
+    font-weight: 200;
+    margin-bottom: 0px;
+}
+
+h1
+{
+    font-size: 1.6em;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    
+}
+
+h2
+{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+h3
+{
+    font-size: 1.2em;
+}
+
+h4
+{
+    font-size: 1.1em;
+}
+
+h5, h6
+{
+    font-size: 1em;
+}
+
+/* this rule styles <h1> and <h2> tags that are the 
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
+{
+    margin-top: 0px;
+}
+
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+.page
+{
+    border-style: none;
+    border-color: inherit;
+    border-width: medium;
+    position:absolute;
+    background-color: #ffffff;
+    margin: 0px 0px 0px 0px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 145px;
+}
+
+.header
+{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    background: #3B5998;
+    width: 100%;
+}
+
+.header h1
+{
+    font-weight: 700;
+    margin: -10px;
+    margin-left: 10px;
+    padding: 0px, 0px, 0px, 20px;
+    color: #ffffff;
+    border: none;
+    line-height: 2em;
+    font-size: 2em;
+ 
+}
+
+.main
+{
+    padding: 0px 12px;
+    margin: 12px 8px 8px 8px;
+    min-height: 420px;
+}
+
+.leftCol
+{
+    padding: 6px 0px;
+    margin: 12px 8px 8px 8px;
+    width: 200px;
+    min-height: 200px;
+}
+
+.footer
+{
+    color: #0000ff;
+    padding: 8px 0px 0px 0px;
+    margin: 0px auto;
+    text-align: center;
+    line-height: normal;
+}
+
+.reklama
+{
+    position:relative;    
+    left:40px;
+}
+
+
+/* TAB MENU   
+----------------------------------------------------------*/
+
+div.hideSkiplink
+{
+    background-color:#ffffff;
+    color:#ffffff;
+    width:100%;
+}
+
+div.menu
+{
+    padding: 4px 0px 4px 8px;
+    
+}
+
+div.menu ul
+{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+}
+
+div.menu ul li a
+{
+    background-color: #ff00ff;
+    border: 1px #ff00ff solid;
+    color: #ff00ff;
+    display: block;
+    line-height: 1.35em;
+    padding: 4px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    
+    }
+
+div.menu ul li a:visited
+{
+    background-color: #ff00ff;
+    border: 1px #ff00ff solid;
+    color: #ff00ff;
+    display: block;
+    line-height: 1.35em;
+    padding: 4px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+div.menu ul li a:hover
+{
+    background-color: #00ffff;
+    color: #ffff00;
+    text-decoration: none;
+}
+
+div.menu ul li a:active
+{
+    background-color: #ffff00;
+    color: #ff0fff;
+    text-decoration: none;
+}
+
+/* FORM ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset
+{
+    margin: 1em 0px;
+    padding: 1em;
+    border: 1px solid #ff00ff;
+}
+
+fieldset p 
+{
+    margin: 2px 12px 10px 10px;
+}
+
+fieldset.login label, fieldset.register label, fieldset.changePassword label
+{
+    display: block;
+}
+
+fieldset label.inline 
+{
+    display: inline;
+}
+
+legend 
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+input.textEntry 
+{
+    width: 320px;
+    border: 1px solid #ff0fff;
+}
+
+input.passwordEntry 
+{
+    width: 320px;
+    border: 1px solid #ffff0f;
+}
+
+div.accountInfo
+{
+    width: 42%;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+
+.clear
+{
+    
+}
+
+.title
+{
+    display: block;
+    float: left;
+    text-align: left;
+    width: auto;
+    margin-bottom: 30px;
+}
+
+.loginDisplay
+{
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    padding: 10px;
+    color: White;
+}
+
+.loginDisplay a:link
+{
+    color: white;
+}
+
+.loginDisplay a:visited
+{
+    color: white;
+}
+
+.loginDisplay a:hover
+{
+    color: white;
+}
+
+.failureNotification
+{
+    font-size: 1.2em;
+    color: Red;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.submitButton
+{
+    text-align: right;
+    padding-right: 10px;
+}
+#table
+{
+    border-style:none;
+}
+
+.div-1 
+{
+ position:relative;
+}
+
+.div-1a
+{
+ position:absolute;
+ top:100;
+ left:0;
+}
+
+.div-1b 
+{
+ position:absolute;
+ top:100;
+ right:0;
+ width: 160px;
+ height: 600px;
+/* border:1px solid black;
+visibility:visible;*/
+ margin-right:50px;
+
+}
+
+.div-1dugme
+{
+   position:relative;
+   bottom:100;
+   color: #000000;
+}
+

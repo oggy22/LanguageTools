@@ -1,0 +1,75 @@
+﻿<Window x:Class="TransliterationEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="700" Width="1050">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="New" />
+                <MenuItem Header="Open" />
+                <MenuItem Header="Close" />
+                <MenuItem Header="Exit" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Options">
+                <MenuItem Header="Add Examples" Click="AddExamples_Click" />
+                <MenuItem Header="Reverse Transliteration" Click="ReverseTransliteration_Click" />
+            </MenuItem>
+                <MenuItem Header="Switch Languages" Click="SwitchLanguages_Click" />
+            <MenuItem Header="Help">
+                <MenuItem Header="About" />
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <ComboBox Grid.Row="0" Grid.Column="0" Height="23" Name="sourceLanguageCombo" SelectionChanged="SourceLanguage_Change" />
+            <ComboBox Grid.Row="0" Grid.Column="1" Height="23" Name="destinationLanguageCombo" SelectionChanged="DestinationLanguage_Change" />
+            <TextBox Grid.Row="1" Grid.Column="0" Name="txtSource" FontSize="18" TextWrapping="Wrap" TextChanged="TextBox_TextChanged"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="txtDestination" FontSize="18" IsReadOnly="True" TextWrapping="Wrap" />
+            <CheckBox Grid.Row="2" Grid.Column="0" Name="checkWithDashes" FontSize="10" Click="checkWithDashes_Click">Transliterate with dashes</CheckBox>
+            <DataGrid Name="dataGridRules" AutoGenerateColumns="False" CanUserDeleteRows="True"
+                      Grid.Row="3" 
+                      Grid.Column="0" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" IsReadOnly="False" />
+                    <DataGridTextColumn Header="Destination" Binding="{Binding Path=Destination}" IsReadOnly="False" />
+                    <DataGridCheckBoxColumn Header="Disabled" Binding="{Binding Path=Disabled}" IsReadOnly="False" />
+                    <DataGridTextColumn Header="Examples" Binding="{Binding Path=Examples}" IsReadOnly="False" />
+                    <DataGridTextColumn Header="CounterExamples" Binding="{Binding Path=CounterExamples}" IsReadOnly="False" />
+                    <DataGridTextColumn Header="Comment" Binding="{Binding Path=Comment}" IsReadOnly="False" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Name="dataGridExamples" AutoGenerateColumns="False" CanUserDeleteRows="True" CanUserAddRows="True"
+                      Grid.Row="3"
+                      Grid.Column="1" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" IsReadOnly="False" />
+                    <DataGridTextColumn Header="Destination" Binding="{Binding Path=Destination}" IsReadOnly="False" />
+                    <DataGridTextColumn Header="Transliterated"
+                        Binding="{Binding Path=Transliterated}"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Tran-sli-te-rated"
+                        Binding="{Binding Path=Tran_sli_te_rated}"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Correct" Binding="{Binding Path=Correct}" IsReadOnly="True" />
+                    <DataGridCheckBoxColumn Header="Disabled" Binding="{Binding Path=Disabled}" IsReadOnly="False" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextBlock.FontSize="18" Click="Button_Click">Reload and retest</Button>
+        </Grid>
+    </Grid>
+</Window>

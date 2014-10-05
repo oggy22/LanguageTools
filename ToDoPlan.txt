@@ -1,0 +1,2 @@
++ Finish the Site
+- Deploy the site on GoDaddy.com

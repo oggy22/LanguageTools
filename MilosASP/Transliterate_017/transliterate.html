@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="transliterate.css" />
+<script src="jquery_mini.js" type="text/javascript" charset="utf-8"></script>
+<script src="transliterate.js" type="text/javascript" charset="utf-8"></script>
+<script src="jquery.autosize.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="jquery-ui-1.9.2.custom.css" />
+<script src="jquery-ui.custom.js"></script>
+<title>Transliterator</title>
+<style>
+		.ui-menu { position: absolute; width: 200px; }
+	</style>
+</head>
+<body class="">
+<div id="ob" class="">
+	<div id="obw">
+		<div id="obzw" class>			
+			<div id="oby">
+				<div id="obyc">
+					<a id="obys">Transliterator</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="obx3" class></div>
+</div>
+<div id="ot-m" class="m-section">
+	<div id="ot-form-c">
+		<form id="ot-form" name="text">
+			<div id="ot-appbar">
+				<div id="ot-langs">					
+					<div>
+							<div>
+								<button id="rerun"></button>
+								<button id="select">Choose a language</button>
+								<button id="arrows">Swap languages</button>														
+								<button id="rerune"></button>
+								<button id="select1">Choose a language</button>
+							</div>
+							<ul>								
+							</ul>
+					</div>
+					<div id="ot-lang-submit">
+						<button id="ot-submit" class="ot-button ot-button-action" type="button" style="tabindex: 0;">Transliterate</button>						
+					</div>
+				</div>
+			</div>
+			<div id="text-adSence">
+				<div id="ot-text-all">
+					<div id="ot-text-c">
+						<div id="ot-src-c" class="o-unit">
+							<div id="ot-src-p">
+								<div id="ot-src-lang-sugg" class="ot-src-lang-sugg-mesage">							
+								</div>
+								<div id="ot-src-wrap" class style>
+									<div style="width: 100%;">									
+										<div class="ot-hl-layer" style="box-sizing: border-box; height: 125px; left: 0px; top: 0px; padding-left: 8px; padding-right: 20px; dir: ltr; ">
+										</div>
+										<textarea id="source" name="text" wrap="soft" tabindex="0" dir="ltr" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" style="overflow-y: hidden; overflow-x: auto; padding-right: 20px; " class="oggy-textarea">
+										</textarea>
+									</div>								
+								</div>
+							</div>
+						</div>
+						<div id="ot-res-c" class="o-unit">
+							<div id="ot-res-p">
+								<div id="ot-res-data" style>
+									<div id="ot-tgt-lang-sugg" class="ot-tgt-lang-sugg-message" style></div>
+									<div id="ot-res-wrap">
+										<div id="ot-res-content" class="almost_half_cell" style>
+											<div dir="ltr" style="zoom:1">											
+												<span id="result_box" lang>
+												</span>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</form>		
+	</div>	
+	
+</div>
+
+</body>
+</html>

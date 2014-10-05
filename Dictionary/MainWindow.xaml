@@ -1,0 +1,79 @@
+﻿<Window x:Class="Dictionary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="412" Width="547">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Name="menuFile" Header="File">
+                <MenuItem Header="Exit" Click="Exit_Click" />
+            </MenuItem>
+            <MenuItem Header="Word">
+                <MenuItem Header="Word Only"            Click="WordItem_Click"/>
+                <MenuItem Header="Word and Translation" Click="WordAndTranslation_Click"/>
+                <MenuItem Header="Translation Only"     Click="Translation_Click"/>
+                <MenuItem Header="+ date created"       Click="DateCreated_Click"/>
+                <MenuItem Header="+ date modified"      Click="DateModified_Click"/>
+            </MenuItem>
+            <MenuItem Name="menuRepository" Header="Repository">
+                <MenuItem Header="XML Repository" Click="XMLRepository_Click" />
+                <MenuItem Header="SQL Repository" Click="SQLRepository_Click" >
+                    <TextBox Name="txtConnectionString" />
+                    <Button Content="OK" Click="SQLRepository_Click" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Name="menuLanguages" Header="Languages">
+                <MenuItem Name="menuAddLanguage" Header="Add New Language" Click="AddLanguage_Click"/>
+            </MenuItem>
+            <MenuItem Header="Order" >
+                <MenuItem Header="Alphabetical" Click="Alphabetical_Click"/>
+                <MenuItem Header="Created"      Click="Created_Click"/>
+                <MenuItem Header="Modified"     Click="Modified_Click"/>
+            </MenuItem>
+            <Button Content="Google Translate" Click="GoogleTranslate_Click"></Button>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Click="About_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox Name="txtWord"         Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextChanged="txtWord_Changed" FontSize="20"/>
+            <TextBox Name="txtTranslation"  Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" TextChanged="txtTranslation_Changed" FontSize="20" />
+
+            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="txtTransliteration" IsEnabled="False" Foreground="DarkSlateGray" FontSize="16"/>
+            <ComboBox Grid.Row="1" Grid.Column="2" Name="comboWordTypes" FontSize="16"/>
+            <Button Grid.Row="1" Grid.Column="3" Name="bttnAdd"     Content="Add"   Click="Add_Click"   IsEnabled="False"/>
+            <Button Grid.Row="1" Grid.Column="4" Name="bttnEdit"    Content="Edit"  Click="Edit_Click"  IsEnabled="False" />
+            <Button Grid.Row="1" Grid.Column="5" Name="bttnDelete"  Content="Delete" Click="Delete_Click"   IsEnabled="False"/>
+
+            <Label Name="label1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="9"/>
+            <Label Name="label2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="9" />
+            <Label Name="label3" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" FontSize="9" />
+
+            <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="listBox1"
+                     SelectionChanged="listBox1_Selected" MouseDoubleClick="listBox1_DoubleClick" MouseDown="listBox1_MouseDown" />
+            <ListBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="listBox2"
+                     SelectionChanged="listBox2_Selected" MouseDoubleClick="listBox2_DoubleClick" MouseDown="listBox2_MouseDown"/>
+            <ListBox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Name="listBox3"
+                     SelectionChanged="listBox3_Selected" MouseDoubleClick="listBox3_DoubleClick" MouseDown="listBox3_MouseDown" />
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,10 @@
+﻿The Language Detection algorithm is based on the letter frequency.
+
+The sample text is compared to all the languages based on the letter frequency with the distance function:
+
+sum for_each_language_letter ( language_letter_freq - sample_text_letter_freq) ^ 2
+
+The information on letter frequency for each language is taken from internet from the following web-sites:
+
+Serbian:
+http://mofoburrell.livejournal.com/42720.html

@@ -1,0 +1,73 @@
+﻿<Window x:Class="TextAnalyzer.Report"
+        xmlns:local="clr-namespace:TextAnalyzer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Report" Height="300" Width="300">
+    <Window.Resources>
+        <local:CharToUnicodeCategory x:Key="charToUnicodeCategory"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DataGrid Name="dataLetters" AutoGenerateColumns="False" Grid.Column="0" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Letter" Binding="{Binding Path=Key}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Frequency" Binding="{Binding Path=Value}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="dataWords" AutoGenerateColumns="False" Grid.Column="1" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Word" Binding="{Binding Path=Key}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Frequency" Binding="{Binding Path=Value}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="dataWords2" AutoGenerateColumns="False" Grid.Column="2" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="2 Words" Binding="{Binding Path=Key}" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Frequency" Binding="{Binding Path=Value}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="dataWords3" AutoGenerateColumns="False" Grid.Column="3" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="3 Words" Binding="{Binding Path=Key}" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Frequency" Binding="{Binding Path=Value}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="dataWords4" AutoGenerateColumns="False" Grid.Column="4" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="4 Words" Binding="{Binding Path=Key}" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Frequency" Binding="{Binding Path=Value}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="dataWords5" AutoGenerateColumns="False" Grid.Column="5" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Capital Words" Binding="{Binding Path=Key}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Frequency" Binding="{Binding Path=Value}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
