@@ -5,7 +5,7 @@ struct English
 	using letter = char;
 	using letters = std::basic_string < letter >;
 
-	enum word_type { noun, verb, pronoun, adjective, adverb, article };
+	enum word_type { noun, verb, pronoun, adjective, adverb, article, NP, VP };
 
 	enum attribute_categories { gender, plurality, person };
 
