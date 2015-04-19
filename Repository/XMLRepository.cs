@@ -48,10 +48,17 @@ namespace Oggy.Repository
         {
             XElement element = new XElement(XName.Get("Language"));
 
+			// Create word types string separeted by commas
+			string wordTypes = string.Empty;
+			foreach (var wt in language.WordTypes)
+				wordTypes += wt + ",";
+			wordTypes = wordTypes.Substring(0, wordTypes.Length - 1);
+
             element.Add(
                 new XAttribute(XName.Get("id"), language.Code),
                 new XAttribute(XName.Get("name"), language.Name),
-                new XAttribute(XName.Get("alphabet"), language.Alphabet ?? "")
+                new XAttribute(XName.Get("alphabet"), language.Alphabet ?? ""),
+				new XAttribute(XName.Get("wordtypes"), wordTypes)
                 );
 
             root.Add(element);
@@ -66,12 +73,18 @@ namespace Oggy.Repository
         {
             XElement element = getLanguage(code);
             XAttribute xalphabet = element.Attribute("alphabet");
+
             Language language = new Language()
             {
                 Code = element.Attribute("id").Value,
                 Name = element.Attribute("name").Value,
                 Alphabet = xalphabet != null ? xalphabet.Value : null
             };
+
+			XAttribute xWordTypes = element.Attribute("wordtypes");
+			if (xWordTypes != null)
+				language.WordTypes = new HashSet<string>(xWordTypes.Value.Split(','));
+
             return language;
         }
 
@@ -120,23 +133,27 @@ namespace Oggy.Repository
 
         private Word extractWord(XElement element)
         {
-            int status;
-            XAttribute xstatus;
+            XAttribute xattr;
 
-            if ((xstatus = element.Attribute("status")) == null)
+            int status;
+            if ((xattr = element.Attribute("status")) == null)
             {
                 if (element.Parent.Name == "category")
-                    xstatus = element.Parent.Attribute("id");
+                    xattr = element.Parent.Attribute("id");
             }
 
-            status = (xstatus != null ? int.Parse(xstatus.Value) : 0);
+            status = (xattr != null ? int.Parse(xattr.Value) : 0);
+
+			string type = string.Empty;
+			if ((xattr = element.Attribute("type")) != null)
+				type = xattr.Value;
 
             return new Word()
             {
-                Name = element.Attribute("name").Value,
+				Name = element.Attribute("name").Value,
                 status = status,
                 Translation = element.Attribute("translation").Value,
-                //Type = word.Attribute("type").Value ?? null
+				Type = type ?? null
             };
         }
 
@@ -146,6 +163,10 @@ namespace Oggy.Repository
                 new XAttribute("name", word.Name),
                 new XAttribute("translation", word.Translation),
                 new XAttribute("status", word.status));
+
+			if (word.Type != null)
+				element.Add(new XAttribute("type", word.Type));
+
             currentLanguageElement.Add(element);
             root.Save(filename);
         }
@@ -155,6 +176,14 @@ namespace Oggy.Repository
             XElement element = currentLanguageElement.Elements().First(w => w.Attribute("name").Value == word.Name);
             element.Attribute("translation").Value = word.Translation;
             element.Attribute("status").Value = word.status.ToString();
+			if (word.Type != string.Empty)
+			{
+				XAttribute xattr;
+				if ((xattr = element.Attribute("type")) == null)
+					element.Add(new XAttribute("type", word.Type));
+				else
+					xattr.Value = word.Type;
+			}
             if (element.Attribute("modified") == null)
                 element.Add(new XAttribute("modified", ""));
             element.Attribute("modified").Value = word.Modified.ToString();

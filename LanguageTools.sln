@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.40302.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AEE6B501-CF9D-4BBD-AED7-D3AAFCD0718A}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,8 +23,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxiliaryConsoleApplication", "AuxiliaryConsoleApplication\AuxiliaryConsoleApplication.csproj", "{C8C01BF9-E2C6-44CE-B614-63354DFFA7B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentConverter", "DocumentConverter\DocumentConverter.csproj", "{412153FF-046E-489E-A6A6-2E53A065E859}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Translator", "Translator\Translator.vcxproj", "{5710F855-51CF-4B1E-A57F-B45C98541958}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer", "TextAnalyzer\TextAnalyzer.csproj", "{9A334BF9-42CE-4DB5-91D4-4443A83F20CB}"
 EndProject
@@ -248,32 +246,6 @@ Global
 		{412153FF-046E-489E-A6A6-2E53A065E859}.Release|x64.ActiveCfg = Release|Any CPU
 		{412153FF-046E-489E-A6A6-2E53A065E859}.Release|x64.Build.0 = Release|Any CPU
 		{412153FF-046E-489E-A6A6-2E53A065E859}.Release|x86.ActiveCfg = Release|Any CPU
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|Win32.Build.0 = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|x64.ActiveCfg = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|x64.Build.0 = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|x86.ActiveCfg = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Debug|x86.Build.0 = Debug|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|Any CPU.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|Mixed Platforms.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|Mixed Platforms.Build.0 = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|Win32.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|Win32.Build.0 = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|x64.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|x86.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.IIS 6.0|x86.Build.0 = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|Any CPU.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|Win32.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|Win32.Build.0 = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|x64.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|x64.Build.0 = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|x86.ActiveCfg = Release|Win32
-		{5710F855-51CF-4B1E-A57F-B45C98541958}.Release|x86.Build.0 = Release|Win32
 		{9A334BF9-42CE-4DB5-91D4-4443A83F20CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A334BF9-42CE-4DB5-91D4-4443A83F20CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A334BF9-42CE-4DB5-91D4-4443A83F20CB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

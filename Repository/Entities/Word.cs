@@ -44,5 +44,10 @@ namespace Oggy.Repository.Entities
         {
             return Name.Length - other.Name.Length;
         }
+
+		public ConsoleColor wordColor()
+		{
+			return ConsoleColor.Green;
+		}
     }
 }

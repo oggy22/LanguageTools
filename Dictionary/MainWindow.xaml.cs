@@ -212,11 +212,19 @@ namespace Dictionary
 
         private void Modified_Click(object sender, RoutedEventArgs e)
         {
-            order = (w1, w2) => w2.Modified.CompareTo(w1.Modified);
-            sortListBox(listBox1, order);
-            sortListBox(listBox2, order);
-            sortListBox(listBox3, order);
-        }
+			order = (w1, w2) => w2.Modified.CompareTo(w1.Modified);
+			sortListBox(listBox1, order);
+			sortListBox(listBox2, order);
+			sortListBox(listBox3, order);
+		}
+
+		private void WordTypeItem_Click(object sender, RoutedEventArgs e)
+		{
+			order = (w1, w2) => w2.Type.CompareTo(w1.Type);
+			sortListBox(listBox1, order);
+			sortListBox(listBox2, order);
+			sortListBox(listBox3, order);
+		}
 
         private void XMLRepository_Click(object sender, RoutedEventArgs e)
         {
@@ -253,7 +261,6 @@ namespace Dictionary
 
             MessageBox.Show(text, "Dictionary");
         }
-
 
         private string googleTranslation;
 
@@ -298,6 +305,7 @@ namespace Dictionary
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             activeWord.Translation = txtTranslation.Text;
+			activeWord.Type = comboWordTypes.SelectedItem as string;
             repository.UpdateWord(activeWord);
             bttnEdit.IsEnabled = false;
         }
@@ -321,6 +329,8 @@ namespace Dictionary
             this.txtWord.Text = word.Name;
             this.txtTranslation.Text = word.Translation;
             this.comboWordTypes.SelectedItem = word.Type;
+			if (word.Type == string.Empty)
+				this.comboWordTypes.SelectedIndex = -1;
             bttnDelete.IsEnabled = true;
         }
 
@@ -514,5 +524,10 @@ namespace Dictionary
             Word.ShowDateModified = !Word.ShowDateModified;
             refreshListBoxes();
         }
+
+		private void comboWordTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			bttnEdit.IsEnabled = activeWord !=null && activeWord.Type != comboWordTypes.SelectedValue;
+		}
     }
 }

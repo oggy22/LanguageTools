@@ -32,8 +32,9 @@
             <MenuItem Header="Order" >
                 <MenuItem Header="Alphabetical" Click="Alphabetical_Click"/>
                 <MenuItem Header="Created"      Click="Created_Click"/>
-                <MenuItem Header="Modified"     Click="Modified_Click"/>
-            </MenuItem>
+				<MenuItem Header="Modified"     Click="Modified_Click"/>
+				<MenuItem Header="WordType"     Click="WordTypeItem_Click"/>
+			</MenuItem>
             <Button Content="Google Translate" Click="GoogleTranslate_Click"></Button>
             <MenuItem Header="Help">
                 <MenuItem Header="About" Click="About_Click"/>
@@ -59,7 +60,7 @@
             <TextBox Name="txtTranslation"  Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" TextChanged="txtTranslation_Changed" FontSize="20" />
 
             <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="txtTransliteration" IsEnabled="False" Foreground="DarkSlateGray" FontSize="16"/>
-            <ComboBox Grid.Row="1" Grid.Column="2" Name="comboWordTypes" FontSize="16"/>
+            <ComboBox Grid.Row="1" Grid.Column="2" Name="comboWordTypes" FontSize="16" SelectionChanged="comboWordTypes_SelectionChanged"/>
             <Button Grid.Row="1" Grid.Column="3" Name="bttnAdd"     Content="Add"   Click="Add_Click"   IsEnabled="False"/>
             <Button Grid.Row="1" Grid.Column="4" Name="bttnEdit"    Content="Edit"  Click="Edit_Click"  IsEnabled="False" />
             <Button Grid.Row="1" Grid.Column="5" Name="bttnDelete"  Content="Delete" Click="Delete_Click"   IsEnabled="False"/>
@@ -68,9 +69,10 @@
             <Label Name="label2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="9" />
             <Label Name="label3" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" FontSize="9" />
 
-            <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="listBox1"
-                     SelectionChanged="listBox1_Selected" MouseDoubleClick="listBox1_DoubleClick" MouseDown="listBox1_MouseDown" />
-            <ListBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="listBox2"
+			<ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="listBox1"
+                     SelectionChanged="listBox1_Selected" MouseDoubleClick="listBox1_DoubleClick" MouseDown="listBox1_MouseDown" >
+			</ListBox>
+			<ListBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="listBox2"
                      SelectionChanged="listBox2_Selected" MouseDoubleClick="listBox2_DoubleClick" MouseDown="listBox2_MouseDown"/>
             <ListBox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Name="listBox3"
                      SelectionChanged="listBox3_Selected" MouseDoubleClick="listBox3_DoubleClick" MouseDown="listBox3_MouseDown" />
