@@ -416,7 +416,6 @@ function CreateButtons(inbutton) {
 					}).text(inbutton[i].title).data('fraze', inbutton[i].text);
 			if(i != 0) {
 				inner.addClass("sample-button-collapse-left");
-				inner.text("kjdhasjkhdjsahdjshd ajhdjahdjkakjhkjhhsdasdlkjlkjjh");
 			}
 			//alert(inner.width());
 			outter.append(inner);
