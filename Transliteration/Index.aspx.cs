@@ -45,6 +45,9 @@ namespace Transliteration
 
         protected void Transliterate(object sender, EventArgs e)
         {
+				TransliterationService1 ts = new TransliterationService1();
+				ts.GetLanguages();
+
             Global.translitCounter++;
             string srcLang = SrcLangDropDownList.SelectedValue.ToString().Substring(0, 2);
             string dstLang = DstLangDropDownList.SelectedValue.ToString().Substring(0, 2);
@@ -53,7 +56,6 @@ namespace Transliteration
 
             DestinationText.Text = transliterator.Transliterate(SourceText.Text);
             NoteLabel.Text = transliterator.Message();
-            //UpdateLabel();
         }
 
         private void UpdateLabel()

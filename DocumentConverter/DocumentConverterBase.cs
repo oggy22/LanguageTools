@@ -9,9 +9,9 @@ namespace Oggy.DocumentConverter
 {
     abstract class DocumentConverterBase
     {
-        protected Transliterator.Transliterator transliterator;
+        protected Transliterator.TransliteratorOld transliterator;
 
-        public DocumentConverterBase(Transliterator.Transliterator transliterator=null)
+        public DocumentConverterBase(Transliterator.TransliteratorOld transliterator=null)
         {
             this.transliterator = transliterator;
         }

@@ -23,7 +23,7 @@ namespace Oggy
         /// <summary>
         /// All the letters. To be used in IsLetter
         /// </summary>
-        static private string letters;
+		 static private string letters = string.Empty;
         
         private string text, lowerCaseText;
 
@@ -33,7 +33,7 @@ namespace Oggy
 
         private StringBuilder output;
 
-        private Dictionary<char, string> jokers;
+		  private Dictionary<char, string> jokers = new Dictionary<char, string>();
         #endregion
 
         #region Constructors
@@ -117,18 +117,18 @@ namespace Oggy
 
         public void ApplyRule(string ruleKey, string ruleValue)
         {
-            bool startWord, endWord;
+            //bool startWord, endWord;
             if (ruleKey.First() != BREAK)
             {
                 ruleKey = ruleKey.Substring(1);
-                startWord = true;
+                //startWord = true;
                 lastWordStartPosition = position;
                 lastTransliteratedWordStartPosition = output.Length;
             }
             if (ruleKey.Last() != BREAK)
             {
                 ruleKey = ruleKey.Substring(0, ruleKey.Length - 1);
-                endWord = true;
+                //endWord = true;
             }
         }
 

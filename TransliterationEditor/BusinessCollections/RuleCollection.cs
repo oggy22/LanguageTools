@@ -43,16 +43,16 @@ namespace TransliterationEditor.BusinessCollections
                     {
                         TransliterationRule rule = (TransliterationRule)item;
                         rule.PropertyChanged += new PropertyChangedEventHandler(rule_PropertyChanged);
-                        if (rule.Source!=null)
-                            MyTransliterator[rule.Source] = rule.Destination;
+						if (rule.Source != null) { }	//todo:
+                            //MyTransliterator[rule.Source] = rule.Destination;
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove :
                     foreach (var item in e.OldItems)
                     {
                         TransliterationRule rule = (TransliterationRule)item;
-                        repository.DeleteRule(rule.Source);
-                        MyTransliterator[rule.Source] = null;
+						repository.DeleteRule(rule.Source);	//todo:
+                        //MyTransliterator[rule.Source] = null;
                     }
                     break;
             }
@@ -79,13 +79,13 @@ namespace TransliterationEditor.BusinessCollections
 
             if (!rule.Disabled)
             {
-                if (rule.oldSource == rule.Source)
-                    MyTransliterator[rule.Source] = (rule.Destination ?? string.Empty);
+                if (rule.oldSource == rule.Source) {} //todo:
+                    //MyTransliterator[rule.Source] = (rule.Destination ?? string.Empty);
                 else
                 {
-                    if (rule.oldSource != null)
-                        MyTransliterator[rule.oldSource] = null;
-                    MyTransliterator[rule.Source] = rule.Destination;
+					if (rule.oldSource != null) { } //todo:
+                        //MyTransliterator[rule.oldSource] = null;
+                    //MyTransliterator[rule.Source] = rule.Destination;
                 }
             }
             //todo: it was enabled, now is disabled, then remove it from the rules

@@ -277,6 +277,12 @@ border: 1px solid #C6C6C6;
 
 #ot-swap {
 	float: right;
+	z-index: 1;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	height: 0px;
+	width: 0px;
 }
 
 #ot-swap .ui-button {

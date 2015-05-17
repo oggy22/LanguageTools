@@ -33,17 +33,20 @@ namespace Oggy.Transliterator.Rules
             this.destination = destination;
             this.jokers = jokers;
 
-            if (source.First() == '|')
-            {
-                WordBegins = true;
-                source = source.Substring(1);
-            }
+			if (source != string.Empty)
+			{
+				if (source.First() == '|')
+				{
+					WordBegins = true;
+					source = source.Substring(1);
+				}
 
-            if (source.Last() == '|')
-            {
-                WordBegins = true;
-                source = source.Substring(0, source.Length - 1);
-            }
+				if (source.Last() == '|')
+				{
+					WordEnds = true;
+					source = source.Substring(0, source.Length - 1);
+				}
+			}
 
             this.jokersLookUp = new int[source.Length];
             this.Jokers = 0;
@@ -75,15 +78,23 @@ namespace Oggy.Transliterator.Rules
         public string RawSource
         { get; private set; }
 
-        public int Jokers
-        { get; private set; }
+			  public int Jokers
+			  { get; private set; }
+
+			public int Length
+			{
+				get
+				{
+					return source.Length;
+				}
+			}
 #endregion
 
 #region Methods
-        static public bool IsLetter(char c)
-        {
-            return 'a' < c && c < 'z';
-        }
+		static public bool IsLetter(char c)
+		{
+			return char.IsLetter(c);
+		}
         
         public bool CanApply(string text, int position)
         {
@@ -128,22 +139,23 @@ namespace Oggy.Transliterator.Rules
             {
                 if (jokersLookUp[i] == -1)
                 {
-                    if (this.source[i] != text[texti])
+                    if (this.source[i] != char.ToLower(text[texti]))
                         return false;
                 }
                 else // So it is a joker
                 {
-                    if (jokers[source[i]].IndexOf(text[texti]) == -1)
+                    if (jokers[source[i]].IndexOf(char.ToLower(text[texti])) == -1)
                         return false;
                 }
             }
 
+			if (WordEnds && Length!=text.LeftCharacters)
+			{
+				if (IsLetter(text[text.Position + Length]))
+					return false;
+			}
+
             return true;
-        }
-
-        public void Apply(string text)
-        {
-
         }
 
         public string Apply(SourceTextWithIterator text)
@@ -154,17 +166,34 @@ namespace Oggy.Transliterator.Rules
             {
                 if (jokersLookUp[i] != -1)
                 {
-                    string c = text[texti].ToString();
+					string C = text[texti].ToString();
+					string c = C.ToLower();
 
                     if (ruleCollection.Contains(c))
                         ret[jokersLookUp[i]] = ruleCollection[c].destination[0];
                     else
                         ret[jokersLookUp[i]] = c[0];
+
+					if (c[0] != C[0])
+						ret[jokersLookUp[i]] = char.ToUpper(ret[jokersLookUp[i]]);
                 }
             }
-            //todo: increment text/source
-            return ret.ToString();
-        }
+
+			switch (text.IncrementPosition(this.source.Length))
+			{
+				case WordCapitals.UpperCase:
+					return ret.ToString().ToUpper();
+				case WordCapitals.CapitalLetter:
+					{
+						string rets = ret.ToString();
+						if (rets != string.Empty)
+							rets = char.ToUpper(rets[0]) + rets.Substring(1);
+						return rets;
+					}
+			}
+
+			return ret.ToString();
+		}
 
         /// <summary>
         /// Compares rules.
@@ -218,6 +247,5 @@ namespace Oggy.Transliterator.Rules
             return rule2 < rule1;
         }
 #endregion
-
-    }
+	}
 }

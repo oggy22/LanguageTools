@@ -14,7 +14,7 @@ namespace TestLanguageTools.LanguageRepository
     {
         const string filename = "test_XMLRepository.xml";
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void TestLanguages()
         {
             // Delete the file if it exists
@@ -53,7 +53,7 @@ namespace TestLanguageTools.LanguageRepository
             Assert.AreEqual(0, xmlRepository.ListLanguages().Count());
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void TestWords()
         {
             // Delete the file if it exists

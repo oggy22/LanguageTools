@@ -229,7 +229,7 @@ $(function () {
 });
 
 
-function TransliterateAjax(text, srcLang, dstLang) {				
+function TransliterateAjax(text, srcLang, dstLang) {
 
 	// Fire off AJAX request.
     $.ajax({

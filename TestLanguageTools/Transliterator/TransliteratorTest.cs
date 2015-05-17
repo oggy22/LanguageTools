@@ -3,83 +3,88 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Oggy.Transliterator;
 using Oggy.Repository;
 using Oggy.Repository.Entities;
+
 using Moq;
+using Oggy;
+using Oggy.Transliterator.Rules;
 
 namespace TestLanguageTools.Transliterator
 {
-    [TestClass]
-    public class TransliteratorTest
-    {
-        #region Helper methods
-        private ARepository CreateMockRepository()
-        {
-            var mock = new Mock<ARepository>();
-            mock.Setup(x => x.RetreiveLanguage("EN")).Returns(new Language() { Code = "EN", Name = "English" });
-            mock.Setup(x => x.RetreiveLanguage("EN")).Returns(new Language() { Code = "SR", Name = "Serbian" });
-            mock.Setup(x => x.GetJokers()).Returns(new Dictionary<char, string> {{ '#', "qwrtpsdfghjklzxcvbnm" }});
-            List<TransliterationRule> rules = new List<TransliterationRule>();
-            rules.Add(new TransliterationRule("ai", "ej"));
-            rules.Add(new TransliterationRule("a", "e"));
-            rules.Add(new TransliterationRule("i", "aj"));
-            rules.Add(new TransliterationRule("c", "s"));
-            rules.Add(new TransliterationRule("a#e", "ej#"));
-            rules.Add(new TransliterationRule("i#e", "aj#"));
-            
-            //TODO: add this one when multiple occurance of the same joker is supported
-            //rules.Add(new TransliterationRule("#i#e", "#aj#"));    // two jokers of the same type
-            
-            mock.Setup(x => x.ListRules(true)).Returns(rules);
-            return mock.Object;
-        }
-        #endregion
+	[TestClass]
+	public class TransliteratorTest
+	{
+		#region Tests
+		/// <summary>
+		///A test for Transliterator Constructor
+		///</summary>
+		[TestMethod()]
+		public void TransliteratorConstructorTest()
+		{
+			var target = new Oggy.Transliterator.Transliterator(MockRepository.Create(), "EN", "SR");
 
-        #region Tests
-        /// <summary>
-        ///A test for match
-        ///</summary>
-        [TestMethod()]
-        public void MatchTest()
-        {
-            Oggy.Transliterator.Transliterator target = new Oggy.Transliterator.Transliterator(null);
+			Assert.AreEqual("mejn", target["main"]);
+			Assert.AreEqual("ajd", target["id"]);
+			Assert.AreEqual("Ej", target["Ai"]);
+			Assert.AreEqual("EJ", target["AI"]);
 
-            // Add jokers
-            target.jokers.Add('@', "aeiuo");
-            target.jokers.Add('#', "qwrtpsdfghjklzxcvbnm");
+			Assert.AreEqual("hrom", target["hrom"]);
+			Assert.AreEqual("mejk", target["make"]);
+			Assert.AreEqual("najs", target["nice"]);
+			
+			// Separation mark "|"
+			Assert.AreEqual("", target[""]);
+			Assert.AreEqual("|", target["|"]);
+			Assert.AreEqual("||", target["||"]);
 
-            //No jokers test
-            Assert.IsTrue(target.Match("x", "x"));
-            Assert.IsTrue(target.Match("abc", "abc"));
-            Assert.IsFalse(target.Match("abc", "ab"));
-            Assert.IsFalse(target.Match("abb", "abce"));
+			// Quotation marks
+			Assert.AreEqual("\"Mejn\"", target["\"Main\""]);
 
-            //Jokers
-            Assert.IsTrue(target.Match("a#e", "ake"));
-            Assert.IsTrue(target.Match("a#e", "ake"));
-            Assert.IsFalse(target.Match("a#e", "aoe"));
-        }
+			// Capital letters            
+			Assert.AreEqual("Najs", target["Nice"]);
+			Assert.AreEqual("NAJS", target["NICE"]);
 
-        /// <summary>
-        ///A test for Transliterator Constructor
-        ///</summary>
-        [TestMethod()]
-        public void TransliteratorConstructorTest()
-        {
-            var target = new Oggy.Transliterator.Transliterator(CreateMockRepository(), "EN", "SR");
-            Assert.AreEqual("mejn", target["main"]);
-            Assert.AreEqual("ajd", target["id"]);
-            Assert.AreEqual("Ej", target.TransliterateFinal("Ai"));
-            Assert.AreEqual("EJ", target.TransliterateFinal("AI"));
-            Assert.AreEqual("hrom", target.TransliterateFinal("hrom"));
-            Assert.AreEqual("mejk", target.TransliterateFinal("make"));
-            Assert.AreEqual("najs", target.TransliterateFinal("nice"));
-            Assert.AreEqual("", target[""]);
+			// I
+			Assert.AreEqual("Aj", target["I"]);
 
-            // With Capital letters            
-            Assert.AreEqual("Najs", target.TransliterateFinal("Nice"));
-        }
-        #endregion
-    }
+			Assert.AreEqual("Ol h", target["All h"]);
+		}
+
+		[TestMethod()]
+		public void TransliteratorMultipleWordsTest()
+		{
+			var target = new Oggy.Transliterator.Transliterator(MockRepository.Create(), "EN", "SR");
+			Assert.AreEqual("mejn Hrom", target["main Hrom"]);
+		}
+
+		[TestMethod()]
+		public void CanApplyTest()
+		{
+			var target = new Oggy.Transliterator.Transliterator(MockRepository.Create(), "EN", "SR");
+			SourceTextWithIterator text = new SourceTextWithIterator("still");
+			Rule rule;
+
+			// Can Apply
+			rule = new Rule("|s", "", new Dictionary<char, string>(), null);
+			Assert.IsTrue(rule.CanApply(text));
+			rule = new Rule("s", "", new Dictionary<char, string>(), null);
+			Assert.IsTrue(rule.CanApply(text));
+			rule = new Rule("st", "", new Dictionary<char, string>(), null);
+			Assert.IsTrue(rule.CanApply(text));
+
+			// Can not Apply
+			rule = new Rule("s|", "", new Dictionary<char, string>(), null);
+			Assert.IsFalse(rule.CanApply(text));
+			rule = new Rule("s@", "", new Dictionary<char, string>(), null);
+			Assert.IsFalse(rule.CanApply(text));
+			rule = new Rule("stil|", "", new Dictionary<char, string>(), null);
+			Assert.IsFalse(rule.CanApply(text));
+
+
+		}
+		#endregion
+	}
 }

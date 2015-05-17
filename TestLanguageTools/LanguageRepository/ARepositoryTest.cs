@@ -28,7 +28,7 @@ namespace TransliteratorTest.LanguageRepository
             return mock.Object;
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void SetSrcLanguageTest()
         {
             ARepository target = CreateARepository();
@@ -48,7 +48,7 @@ namespace TransliteratorTest.LanguageRepository
             Assert.AreEqual("Serbian", language.Name);
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public void SetUpTest()
         {
             ARepository target = CreateARepository();

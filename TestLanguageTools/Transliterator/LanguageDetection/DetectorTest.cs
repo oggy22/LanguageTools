@@ -11,7 +11,7 @@ namespace TestLanguageTools
         /// <summary>
         ///A test for detect
         ///</summary>
-        [TestMethod()]
+        [TestMethod(), Ignore()]
         public void detectTest()
         {
             SqlRepository repository = new SqlRepository();

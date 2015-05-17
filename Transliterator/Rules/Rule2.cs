@@ -14,11 +14,11 @@ namespace Oggy.Transliterator.Rules
 
         private string source, destination;
 
-        private int preTextLenght, ruleLenght, postTextLenght;
-        
-        private int jokersCount;
+		  private int preTextLenght, ruleLenght, postTextLenght = 0;
 
-        private int[] jokerPosition;
+		  private int jokersCount = 0;
+
+		  private int[] jokerPosition = null;
 
         private bool startWord, endWord;
 

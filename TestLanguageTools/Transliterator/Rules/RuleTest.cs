@@ -19,8 +19,10 @@ namespace TestLanguageTools
         [TestMethod()]
         public void RuleConstructorTest()
         {
+			Dictionary<char, string> jokers = new Dictionary<char, string>();
+
             RuleCollection collection = new RuleCollection();
-            collection.Add(new Rule("ate", "ejt", null, collection));
+			collection.Add(new Rule("ate", "ejt", jokers, collection));
         }
     }
 }

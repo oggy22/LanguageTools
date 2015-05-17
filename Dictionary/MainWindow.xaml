@@ -71,6 +71,18 @@
 
 			<ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="listBox1"
                      SelectionChanged="listBox1_Selected" MouseDoubleClick="listBox1_DoubleClick" MouseDown="listBox1_MouseDown" >
+				<ListBox.Resources>
+					<Style TargetType="ListBoxItem">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding Important}" Value="True">
+								<Setter Property="Background" Value="Red" />
+							</DataTrigger>
+							<DataTrigger Binding="{Binding Important}" Value="False">
+								<Setter Property="Background" Value="White" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</ListBox.Resources>
 			</ListBox>
 			<ListBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="listBox2"
                      SelectionChanged="listBox2_Selected" MouseDoubleClick="listBox2_DoubleClick" MouseDown="listBox2_MouseDown"/>

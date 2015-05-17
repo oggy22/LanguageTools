@@ -1,17 +1,17 @@
-﻿startWord Pretxt AfterTxt endWrd   FORM
+﻿startWord Pretxt AfterTxt endWrd		FORM	supported on Rule class as well
 True	True	True	True	|a+b+c|
 True	True	True	False	|a+b+
 True	True	False	True	|a+b+|
 True	True	False	False	|a+b+
 True	False	True	True	|b+c|
 True	False	True	False	|b+c
-True	False	False	True	|b|
-True	False	False	False	|b
+True	False	False	True	|b|			YES
+True	False	False	False	|b				YES
 False	True	True	True	a+b+c|
 False	True	True	False	a+b+c
 False	True	False	True	a+b+|
 False	True	False	False	a+b+
 False	False	True	True	+b+c|
 False	False	True	False	+b+c
-False	False	False	True	b|
-False	False	False	False	b
+False	False	False	True	b|				YES
+False	False	False	False	b				YES

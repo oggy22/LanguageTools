@@ -7,7 +7,7 @@ namespace Oggy.LanguageDetection
 {
     static class Detector
     {
-        static Dictionary<string, LetterDistribution> languages;
+		 static Dictionary<string, LetterDistribution> languages = new Dictionary<string, LetterDistribution>();
 
         /// <summary>
         /// Detects the source language based on the letter frequency.

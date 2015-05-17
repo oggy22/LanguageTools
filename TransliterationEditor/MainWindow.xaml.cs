@@ -81,17 +81,17 @@ namespace TransliterationEditor
             RuleCollection rules = new RuleCollection(repository);
             dataGridRules.ItemsSource = rules;
             transliterator = new Transliterator(repository, sourceLanguage.Code, destinationLanguage.Code);
-            TransliterationExample.Transliterator = (s => transliterator.TransliterateFinal(s));
-            TransliterationExample.Trans_li_te_rator = ( s => transliterator.TransliterateFinal(s, true));
+            TransliterationExample.Transliterator = (s => transliterator[s]);
+            TransliterationExample.Trans_li_te_rator = ( s => transliterator[s]);
             rules.MyTransliterator = transliterator;
 
             // Load TransliterationExamples
             examplesCollection = new ExampleCollection(repository);
             dataGridExamples.ItemsSource = examplesCollection;
 
-            // Add all the examples to the update list
-            foreach (var example in examplesCollection)
-                transliterator.ExamplesToUpdate.Add(example);
+            // Add all the examples to the update list	//todo:
+			//foreach (var example in examplesCollection)
+			//	transliterator.ExamplesToUpdate.Add(example);
 
             TextBox_TextChanged(null, null);
         }
@@ -114,7 +114,7 @@ namespace TransliterationEditor
 
         private void UpdateTranslireation()
         {
-            txtDestination.Text = transliterator.TransliterateFinal(txtSource.Text, checkWithDashes.IsChecked.Value);
+            txtDestination.Text = transliterator[txtSource.Text];
         }
 
         private bool triggerReloadForCombos = false;
@@ -147,7 +147,8 @@ namespace TransliterationEditor
 
             int correct = examplesCollection.Count(example => example.Correct);
             int total = examplesCollection.Count;
-            MessageBox.Show("There are " + correct + "/" + total + " correct/total examples ratio.\n" + (total-correct) +" incorrect examples");
+			int incorrect = total - correct;
+            MessageBox.Show("There are " + correct + "/" + total + " correct/total examples ratio.\n" + (total-correct) + " incorrect examples (" +  (int)(100 * (double)(incorrect)/total) +"%)");
         }
 
         #endregion

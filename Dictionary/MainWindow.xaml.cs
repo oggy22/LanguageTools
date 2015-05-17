@@ -305,7 +305,7 @@ namespace Dictionary
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             activeWord.Translation = txtTranslation.Text;
-			activeWord.Type = comboWordTypes.SelectedItem as string;
+				activeWord.Type = comboWordTypes.SelectedItem as string;
             repository.UpdateWord(activeWord);
             bttnEdit.IsEnabled = false;
         }

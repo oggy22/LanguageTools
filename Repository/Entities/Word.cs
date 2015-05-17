@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +13,8 @@ namespace Oggy.Repository.Entities
         public static bool ShowDateCreated { get; set; }
 
         public static bool ShowDateModified { get; set; }
+
+		  public bool Important { get { return Name.Length % 1 == 0; } }
 
         public string Name { get; set; }
 
@@ -45,9 +48,29 @@ namespace Oggy.Repository.Entities
             return Name.Length - other.Name.Length;
         }
 
-		public ConsoleColor wordColor()
+		public Color WordColor
 		{
-			return ConsoleColor.Green;
+			get
+			{
+				return Color.Black;
+				//return new SolidBrush(Color.Salmon);
+				//if (Type == null)
+				//	return new SolidBrush(Color.DarkBlue);
+				//if (Type == string.Empty)
+				//	return new SolidBrush(Color.Red);
+				//if (Type == "noun")
+				//	return new SolidBrush(Color.Purple);
+				//return new SolidBrush(Color.Pink);
+
+			}
+		}
+
+		public Color BackgroundColor
+		{
+			get
+			{
+				return Color.Gray;
+			}
 		}
     }
 }

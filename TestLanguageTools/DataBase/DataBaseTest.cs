@@ -18,7 +18,7 @@ namespace TestLanguageTools.DataBase
 
         private static SqlRepository repository = new SqlRepository();
 
-        private static Oggy.Transliterator.Transliterator transliterator = new Oggy.Transliterator.Transliterator(null);
+        private static Oggy.Transliterator.TransliteratorOld transliterator = new Oggy.Transliterator.TransliteratorOld(null);
 
         /// <summary>
         /// Get all pairs of source and destination language for transliteration
