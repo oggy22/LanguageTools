@@ -37,10 +37,13 @@ namespace AuxiliaryConsoleApplication
                 return;
             }
 
-            var connection = repository.connection;
+			var connection = repository.connection;
 
-            //insert("RU", "Да и нет", @"..\..\Russian.txt", repository.connection);
-            insert_file("HR", "Vremena", @"..\..\Dodju vremena.txt", repository.connection);
+			//Add french samples: "L'État, c'est moi" "Liberté, égalité, fraternité" and "Voulez-vous coucher avec moi?"
+
+			//insert("ES", "Lo importante", "\"Lo importante es que hablen de ti, aunque sea bien.\" - Salvador Dalí", repository.connection);
+			insert("FR", "Louis XIV", @"L'État, c'est moi", repository.connection);
+			//insert_file("MK", "Македонија", @"..\..\Makedonija.txt", repository.connection);
             //command("ALTER TABLE [dbo].[Languages] ALTER COLUMN [Name] NVARCHAR (30) NOT NULL", connection);
         }
 
