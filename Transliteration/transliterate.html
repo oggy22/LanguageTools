@@ -7,12 +7,11 @@
 <link rel="stylesheet" type="text/css" href="jquery-ui-1.9.2.custom.css" />
 <script src="jquery_mini.js" type="text/javascript" charset="utf-8"></script>
 <script src="jquery.autosize.js" type="text/javascript" charset="utf-8"></script>
-
 <script src="jquery-ui.custom.js" type="text/javascript" charset="utf-8"></script>
 <script src="transliterate.js" type="text/javascript" charset="utf-8"></script>
 <title>Transliterator</title>
 <style type="text/css">
-	.ui-menu { position: absolute; width: 200px; z-index: 2; }	
+	.ui-menu { position: absolute; width: 200px; z-index: 2; }
 </style>
 </head>
 <body class="">
@@ -41,8 +40,8 @@
 								<ul id="ui-menu-left">
 								</ul>
 							</div>
-							<div id="ot-del-src">
-								<button id="ot-del-textbox">del</button>
+							<div id="ot-swap">
+								<button id="ot-del-textbox" class="ot-button ot-button-action" type="button">delete text</button>
 							</div>
 							<div id="ot-swap">
 								<button id="swap">Swap languages</button>
@@ -56,14 +55,14 @@
 								</ul>
 							</div>
 							<div id="ot-lang-submit">
-								<button id="ot-submit" class="ot-button ot-button-action" type="button">Transliterate</button>
+								<button id="ot-submit" class="ot-button ot-button-action" type="button">Transliterate</button>						
 							</div>
 						</div>
 					</div>
 					<div id="ot-box-bar">
 						<div id="ot-src-box" class="o-unit">
 							<div id="ot-src-p">
-								<div id="ot-src-wrap" class="">
+								<div id="ot-src-wrap" class="" style="">
 									<div style="width: 100%;">
 										<div class="ot-hl-layer" style="height: 1%; left: 0px; top: 0px; direction: ltr; ">
 										<textarea id="source" name="text" tabindex="0" dir="ltr" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" style="overflow-y: hidden; overflow-x: auto; " class="oggy-textarea">
@@ -74,7 +73,7 @@
 							</div>
 							<div id="ot-sample-box">
 							</div>
-							<div id="error_box"/>
+							<div id = "error_box"></div>
 						</div>
 						<div id="ot-dst-box" class="o-unit">
 							<div id="ot-res-p">

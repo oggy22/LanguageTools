@@ -107,6 +107,7 @@
     <Content Include="jquery-ui.custom.js" />
     <Content Include="jquery.autosize.js" />
     <Content Include="jquery_mini.js" />
+    <Content Include="proba.htm" />
     <Content Include="Styles\Site.css" />
     <Content Include="Index.aspx" />
     <Content Include="Global.asax" />
