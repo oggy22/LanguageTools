@@ -42,8 +42,8 @@
 								<ul id="ui-menu-left">
 								</ul>
 							</div>
-							<div id="ot-swap">
-								<button id="ot-del-textbox" class="ot-button ot-button-action" type="button">delete text</button>
+							<div id="ot-del-src">
+								<button id="ot-del-textbox">del</button>
 							</div>
 							<div id="ot-swap">
 								<button id="swap">Swap languages</button>
@@ -64,8 +64,8 @@
 					<div id="ot-box-bar">
 						<div id="ot-src-box" class="o-unit">
 							<div id="ot-src-p">
-								<div id="ot-src-wrap" class="" style="">
-									<div style="width: 100%;">
+								<div id="ot-src-wrap">
+									<div style="width:100%;">
 										<div class="ot-hl-layer" style="height: 1%; left: 0px; top: 0px; direction: ltr; ">
 										<textarea id="source" name="text" tabindex="0" dir="ltr" spellcheck="false" style="overflow-y: hidden; overflow-x: auto; " class="oggy-textarea">
 										</textarea>

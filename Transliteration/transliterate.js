@@ -17,10 +17,12 @@ $(document).ready(function () {
     $('textarea').val('');
     $('#result_box').text('');
     $('textarea').focus();
-	$(window).resize(GetButtonWidth);
 	
-	$("button#rerun, button#rerune").addClass("ui-corner-left");
-	$("button#select, button#select1").addClass("ui-corner-right");
+	//$("button#rerun, button#rerune").addClass("ui-corner-left");
+	//$("button#select, button#select1").addClass("ui-corner-right");
+	//$("button#swap").addClass("ui-corner-all");
+	//$("button#ot-del-textbox").addClass("ui-corner-all");
+	//$("button#trash").addClass("ui-corner-right");
 	
 // Selection of language on click on li element in unordered list and placement into appropriate button
     $("ul").menu({
@@ -161,6 +163,13 @@ $(function () {
 					.menu()
 					.parent()
 					.buttonset();
+					
+	$("#ot-del-textbox")
+			.button({
+				icons: {
+						primary: "ui-icon-trash"
+				}
+			});
 
 // Defining functions with clicking on the buttons with 'rerune' id and 'select1' id
     $("#rerune")
@@ -229,7 +238,7 @@ $(function () {
 });
 
 
-function TransliterateAjax(text, srcLang, dstLang) {
+function TransliterateAjax(text, srcLang, dstLang) {				
 
 	// Fire off AJAX request.
     $.ajax({
@@ -397,16 +406,15 @@ function CallOrNotListTextSamples() {
 }
 
 function CreateButtons(inbutton) {
-	//$('#ot-sample-box').css("visibility", "hidden");
 	var size = inbutton.length;
-	//var delimited = 100/size;
+	var delimited = 100/size;
 	$(function() {	
 		var container = $("<div></div>").attr('id', 'ot-sample-button');
-		var inner, outter//, difference = 0, width = 0, padding = 0;
+		var inner, outter;
 		for(i=0; i<size; i++) {
 			outter = 	$("<div/>", {
 							"class": "outter",
-							//width: delimited + "%"
+							width: delimited + "%"
 						});
 			inner = $("<div/>", {
 						role: "button",
@@ -417,24 +425,11 @@ function CreateButtons(inbutton) {
 			if(i != 0) {
 				inner.addClass("sample-button-collapse-left");
 			}
-			//alert(inner.width());
 			outter.append(inner);
 			container.append(outter);	
 		}
-		//alert(inner.width());
 		$('#ot-sample-box').html(container);
-		GetButtonWidth();
-		
-		/*difference = $('#ot-sample-button').width() - width;
-		paddingLeft  = parseInt($('.sample-button-standard').css("padding-left").replace("px", '')) + difference / (size * 2) + "px";
-		alert(paddingLeft);
-		alert(difference / (size * 2));
-		paddingRight = parseInt($('.sample-button-standard').css("padding-right").replace("px", '')) + difference / (size * 2) + "px";
-		//alert($('#ot-sample-button').width()+ "\n" + width);
-		$('.sample-button-standard').css({"padding-left":paddingLeft, "padding-right":paddingRight});*/
-		
-		//$('#ot-sample-box').html(container).css("visibility", "visible");
-		
+
 		//sample-button
 		$(".sample-button").hover(function(){
 			$(this).addClass("sample-button-hover");
@@ -452,24 +447,6 @@ function CreateButtons(inbutton) {
 			}
 		});					
 		
-	});
-}
-
-function GetButtonWidth() {
-	var size=0, width = 0, difference = 0, padding = 0;
-	for(i=0; i<button.length; i++) {
-		if(button[i].lang == srcLang.code) {
-			size = button[i].value.length;
-		}
-	}
-	$('#ot-sample-box .outter').each(function(){
-			width += $(this).width();
-	});
-	difference = $('#ot-sample-button').width() - width;
-	padding = difference / (size * 2);
-	$('#ot-sample-box .outter').each(function(){
-		width = ($(this).width() + padding * 2) / $('#ot-sample-button').width() * 100;
-		$(this).css("width", width + "%");
 	});
 }
 
