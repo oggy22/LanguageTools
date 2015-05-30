@@ -5,6 +5,7 @@ VisualStudioVersion = 12.0.40302.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AEE6B501-CF9D-4BBD-AED7-D3AAFCD0718A}"
 	ProjectSection(SolutionItems) = preProject
+		LanguageToolsTasks.xlsx = LanguageToolsTasks.xlsx
 		Web.config = Web.config
 	EndProjectSection
 EndProject
