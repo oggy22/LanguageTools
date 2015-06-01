@@ -113,6 +113,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions">
@@ -122,6 +123,7 @@
       <HintPath>..\packages\Microsoft.Net.Http.2.1.10\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -156,6 +158,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KeyboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeyboardForm.Designer.cs">
+      <DependentUpon>KeyboardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Language.xaml.cs">
       <DependentUpon>Language.xaml</DependentUpon>
     </Compile>

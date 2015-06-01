@@ -62,6 +62,9 @@
 			<Button Click="GoogleTranslate_Click">
 				<Label>_Translate</Label>
 			</Button>
+			<Button Click="Keyboard_Click">
+				<Label>_Keyboard</Label>
+			</Button>
 			<MenuItem Header="Help">
 				<MenuItem Header="About" Click="About_Click"/>
 			</MenuItem>
