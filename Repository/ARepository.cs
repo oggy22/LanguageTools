@@ -42,7 +42,7 @@ namespace Oggy.Repository
 
         #region CRUD for Languages + LanguageList Cache
         public abstract IEnumerable<Language> ListLanguages(bool enabledOnly=false);
-        public abstract void CreateLanguage(Language language);
+        public abstract bool CreateLanguage(Language language);
         public abstract Language RetreiveLanguage(string code);
         public abstract void UpdateLanguage(Language code);
         public abstract bool DeleteLanguage(string code);

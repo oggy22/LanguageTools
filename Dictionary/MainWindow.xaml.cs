@@ -50,8 +50,13 @@ namespace Dictionary
 				// Create English if it doesn't exist and set it as the source language
 				if (!repository.ListLanguages().Any(lang => lang.Code == "EN"))
 				{
-					repository.CreateLanguage(new Oggy.Repository.Entities.Language() { Code = "EN", Name = "English", Alphabet = "abcdefghijklmnopqrstuvwxyz" });
-					repository.SetSourceLanguage("EN");
+					repository.CreateLanguage(new Oggy.Repository.Entities.Language()
+					{
+						Code = "EN",
+						Name = "English",
+						Alphabet = "abcdefghijklmnopqrstuvwxyz",
+						WordTypes = new HashSet<string>() { "noun", "verb", "adjective", "adverb"}
+					});
 				}
 				repository.SetSourceLanguage("EN");
 
@@ -115,10 +120,17 @@ namespace Dictionary
 
 			MenuItem menuAddLanguage = new MenuItem()
 			{
-				Header = "Add New Language"
+				Header = "Add New Language",
 			};
-
+			menuAddLanguage.Click += this.AddLanguage_Click;
 			menuLanguages.Items.Add(menuAddLanguage);
+
+			MenuItem menuUpdateLanguage = new MenuItem()
+			{
+				Header = "Edit Language",
+			};
+			menuUpdateLanguage.Click += this.EditLanguage_Click;
+			menuLanguages.Items.Add(menuUpdateLanguage);
 		}
 
 		private void loadWordTypes()
@@ -512,10 +524,36 @@ namespace Dictionary
 		}
 		#endregion
 
-		private void AddLanguage_Click(object sender, RoutedEventArgs e)
+		private void AddLanguage_Click(object o, RoutedEventArgs e)
 		{
-			Dictionary.Language language = new Language();
-			language.ShowDialog();
+			Dictionary.LanguageWindow languageWindow = new LanguageWindow(Dictionary.LanguageWindow.UseLanguageWindow.CreateLanguage);
+			Oggy.Repository.Entities.Language language = new Language();
+			while (languageWindow.ShowDialog().Value)
+			{
+				languageWindow.LanguageWindowToLanguage(language);
+				if (repository.CreateLanguage(language))
+					return;
+			}
+			loadAllLanguages();
+			repository.SetSourceLanguage(language.Code);
+			loadLanguage();
+		}
+
+		private void EditLanguage_Click(object o, RoutedEventArgs e)
+		{
+			Dictionary.LanguageWindow languageWindow = new LanguageWindow(
+				Dictionary.LanguageWindow.UseLanguageWindow.UpdateLanguage,
+				repository.srcLanguage
+				);
+			
+			if (!languageWindow.ShowDialog().Value)
+				return;
+
+			languageWindow.LanguageWindowToLanguage(repository.srcLanguage);
+			languageWindow.Close();
+			repository.UpdateLanguage(repository.srcLanguage);
+			loadAllLanguages();
+			loadLanguage();
 		}
 
 		private void DateCreated_Click(object sender, RoutedEventArgs e)

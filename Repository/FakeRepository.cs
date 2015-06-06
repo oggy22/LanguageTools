@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Oggy.Repository;
 using Oggy.Repository.Entities;
 
 namespace Oggy.Repository
@@ -33,7 +31,7 @@ namespace Oggy.Repository
             return languages.AsEnumerable();
         }
 
-        public override void CreateLanguage(Language language)
+        public override bool CreateLanguage(Language language)
         {
             throw new NotImplementedException();
         }

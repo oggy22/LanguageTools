@@ -6,7 +6,7 @@ namespace Dictionary
 {
 	public partial class KeyboardForm : Form
 	{
-		readonly Size buttonSize = new Size(30, 30);
+		readonly Size buttonSize = new Size(30, 35);
 		readonly char accent = (char)(0x0301);
 		bool callPrevent = false;
 		string alphabet;
