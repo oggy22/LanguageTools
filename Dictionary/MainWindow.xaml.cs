@@ -570,7 +570,7 @@ namespace Dictionary
 
 		private void comboWordTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			bttnEdit.IsEnabled = activeWord != null && activeWord.Type != comboWordTypes.SelectedValue;
+			bttnEdit.IsEnabled = activeWord != null && activeWord.Type != (comboWordTypes.SelectedValue ?? string.Empty).ToString();
 		}
 
 		private void Keyboard_Click(object sender, RoutedEventArgs e)
