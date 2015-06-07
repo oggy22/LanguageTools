@@ -100,8 +100,11 @@ namespace Oggy.Repository
 		{
 			XElement element = getLanguage(language.Code);
 			element.Attribute(XName.Get("name")).Value = language.Name;
-			element.Attribute(XName.Get("alphabet")).Value = language.Alphabet;
-			element.SetAttributeValue("wordtypes", language.WordTypes.Aggregate((s1, s2) => s1 + "," + s2));
+			element.SetAttributeValue(XName.Get("alphabet"), language.Alphabet);
+			element.SetAttributeValue("wordtypes",
+				language.WordTypes.Count > 0 ?
+				language.WordTypes.Aggregate((s1, s2) => s1 + "," + s2) :
+				string.Empty);
 			this.root.Save(filename);
 		}
 

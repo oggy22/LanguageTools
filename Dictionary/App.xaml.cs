@@ -16,8 +16,22 @@ namespace Dictionary
 			if (window.ShowDialog().Value)
 			{
 				var assembly = System.Reflection.Assembly.GetExecutingAssembly().GetName();
-				string filename = @"\\OGGY-PC\CrashReports\" + Environment.MachineName + "-" + e.Exception.Source + "-" + assembly.Version.ToString() + ".crp";
-				File.WriteAllText(filename, window.txtMessage.Text);
+				string location = @"\\OGGY-PC\CrashReports\";
+				string filename = Environment.MachineName
+					+ "-" + e.Exception.Source
+					+ "-" + assembly.Version.ToString()
+					+ "-" + DateTime.Now.ToString("yyyyMMddHHmmss")
+					+ ".crp";
+				try
+				{
+					File.WriteAllText(location + filename, window.txtMessage.Text);
+				}
+				catch(Exception)
+				{
+					string newLocation = @"C:\CrashReports\";
+					MessageBox.Show("The location " + location + " is unavailable. The crash report will be saved at " + newLocation);
+					File.WriteAllText(newLocation + filename, window.txtMessage.Text);
+				}
 			}
 			e.Handled = true;
 		}

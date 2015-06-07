@@ -532,10 +532,10 @@ namespace Dictionary
 			{
 				languageWindow.LanguageWindowToLanguage(language);
 				if (repository.CreateLanguage(language))
-					return;
+					break;
 			}
-			loadAllLanguages();
 			repository.SetSourceLanguage(language.Code);
+			loadAllLanguages();
 			loadLanguage();
 		}
 
@@ -575,16 +575,19 @@ namespace Dictionary
 
 		private void Keyboard_Click(object sender, RoutedEventArgs e)
 		{
-			if (keyboard == null)
+			lock (this)
 			{
-				var language = repository.srcLanguage;
-				keyboard = new KeyboardForm(this.txtWord, language.Code, language.Alphabet);
-				keyboard.Show();
-			}
-			else
-			{
-				keyboard.Dispose();
-				keyboard = null;
+				if (keyboard == null)
+				{
+					var language = repository.srcLanguage;
+					keyboard = new KeyboardForm(this.txtWord, language.Code, language.Alphabet);
+					keyboard.Show();
+				}
+				else
+				{
+					keyboard.Dispose();
+					keyboard = null;
+				}
 			}
 		}
 	}

@@ -121,7 +121,11 @@ namespace Dictionary
 			// Check alphabet
 			lblAlphabet.Foreground = redBrush;
 			if (!IsLower(txtAlphabet.Text))
-				return false;
+			{
+				int selectionStart = txtAlphabet.SelectionStart;
+				txtAlphabet.Text = txtAlphabet.Text.ToLower();
+				txtAlphabet.SelectionStart = selectionStart;
+			}
 			if (!AllDifferent(txtAlphabet.Text))
 				return false;
 			lblAlphabet.Foreground = blackBrush;

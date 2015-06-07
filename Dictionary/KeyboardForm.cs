@@ -15,7 +15,7 @@ namespace Dictionary
 		public KeyboardForm(System.Windows.Controls.TextBox txtWord, string langId, string alhpabet)
 		{
 			this.txtWord = txtWord;
-			SetLanguage(langId, alhpabet);
+			SetLanguage(langId, alhpabet ?? string.Empty);
 			this.Focus();
 		}
 

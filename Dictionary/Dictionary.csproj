@@ -245,6 +245,7 @@
     <PostBuildEvent>copy $(TargetPath) C:\Users\Ognjen\Desktop\Dictionary
 copy $(TargetPath).config C:\Users\Ognjen\Desktop\Dictionary
 copy $(TargetDir)*.dll C:\Users\Ognjen\Desktop\Dictionary
+copy $(TargetDir)*.pdb C:\Users\Ognjen\Desktop\Dictionary
 if exist $(TargetDir)Dictionary.xml copy $(TargetDir)Dictionary.xml C:\Users\Ognjen\Desktop\Dictionary</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
