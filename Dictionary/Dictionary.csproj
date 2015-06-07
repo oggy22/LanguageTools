@@ -149,6 +149,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="CrashReporterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Language.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +163,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CrashReporterWindow.xaml.cs">
+      <DependentUpon>CrashReporterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KeyboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
