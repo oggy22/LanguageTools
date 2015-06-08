@@ -43,13 +43,7 @@
                 <MenuItem Header="+ date created"       Click="DateCreated_Click"/>
                 <MenuItem Header="+ date modified"      Click="DateModified_Click"/>
             </MenuItem>
-            <MenuItem Name="menuRepository" Header="Repository">
-                <MenuItem Header="XML Repository" Click="XMLRepository_Click" />
-                <MenuItem Header="SQL Repository" Click="SQLRepository_Click" >
-                    <TextBox Name="txtConnectionString" />
-                    <Button Content="OK" Click="SQLRepository_Click" />
-                </MenuItem>
-            </MenuItem>
+			<MenuItem Name="menuRepository" Header="Repository" />
             <MenuItem Name="menuLanguages" Header="Languages">
                 <MenuItem Name="menuAddLanguage" Header="Add New Language" Click="AddLanguage_Click"/>
             </MenuItem>

@@ -2,23 +2,16 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Reflection;
 using Oggy.Repository;
 using Oggy.Repository.Entities;
 using Oggy.Transliterator;
 using System.Threading.Tasks;
 using Google.Apis.Translate.v2;
 using Google.Apis.Services;
-using System.Diagnostics;
 
 namespace Dictionary
 {
@@ -30,7 +23,6 @@ namespace Dictionary
 		ARepository repository;
 		ListBox activeListBox = null;
 		int listbox2To = 1; // either 1 or 3 representing listbox1 or listbox3 in which a word is relocated after listbox2
-		string xmlFile, sqlConnectionString;
 		const string settingsFile = "settings";
 		Word activeWord = null;
 		Comparison<Word> order = null;
@@ -44,7 +36,6 @@ namespace Dictionary
 
 			try
 			{
-				repository = new Oggy.Repository.XMLRepository(xmlFile);
 				loadAllLanguages();
 
 				// Create English if it doesn't exist and set it as the source language
@@ -71,25 +62,52 @@ namespace Dictionary
 		private void saveSettings()
 		{
 			var writter = new StreamWriter(settingsFile);
-			writter.WriteLine(xmlFile);
-			writter.WriteLine(sqlConnectionString);
+			foreach (var menuItem in menuRepository.Items)
+			{
+				writter.WriteLine((menuItem as MenuItem).Header.ToString());
+			}
 			writter.Close();
 		}
 
 		#region Load Routines and updateLabels
+		private ARepository GetRepository(string type)
+		{
+			Type t = System.Reflection.Assembly.Load("Repository").GetTypes().First(tp => tp.Name.EndsWith(type));
+			ARepository repository = Activator.CreateInstance(t) as ARepository;
+			return repository;
+		}
+
 		private void loadSettings()
 		{
+			XMLRepository rep = new XMLRepository("Dictionary.xml");
+			var type = rep.GetType();
+	
 			try
 			{
 				var reader = new StreamReader(settingsFile);
-				xmlFile = reader.ReadLine();
-				txtConnectionString.Text = sqlConnectionString = reader.ReadLine();
+				while (!reader.EndOfStream)
+				{
+					string line = reader.ReadLine();
+
+					MenuItem menuItem = new MenuItem()
+					{
+						Header = line,
+						IsCheckable = true
+					};
+					menuItem.Click += menuRepository_Click;
+					this.menuRepository.Items.Add(menuItem);
+				}
 				reader.Close();
 			}
-			catch (FileNotFoundException) { }
+			catch (FileNotFoundException) {}
 
-			if (xmlFile == null)
-				xmlFile = "Dictionary.xml";
+			if (this.menuRepository.Items.Count == 0)
+				this.menuRepository.Items.Add(new MenuItem() { Header = "XMLRepository" });
+
+			repository = GetRepository((this.menuRepository.Items[0] as MenuItem).Header.ToString());
+			(this.menuRepository.Items[0] as MenuItem).IsChecked = true;
+
+			saveSettings();
 		}
 
 		private void loadLanguage()
@@ -188,6 +206,20 @@ namespace Dictionary
 		#endregion
 
 		#region Menu
+		void menuRepository_Click(object sender, RoutedEventArgs e)
+		{
+			foreach(MenuItem menuItem in menuRepository.Items)
+			{
+				if (menuItem != sender)
+					menuItem.IsChecked = false;
+			}
+			this.IsEnabled = false;
+			repository = GetRepository((sender as MenuItem).Header.ToString());
+			loadAllLanguages();
+			loadLanguage();
+			this.IsEnabled = true;
+		}
+
 		void menuLang_Click(object sender, RoutedEventArgs e)
 		{
 			this.Title = "Dictionary: " + (sender as MenuItem).Header.ToString();
@@ -241,26 +273,6 @@ namespace Dictionary
 			sortListBox(listBox1, order);
 			sortListBox(listBox2, order);
 			sortListBox(listBox3, order);
-		}
-
-		private void XMLRepository_Click(object sender, RoutedEventArgs e)
-		{
-			var openFileDialog = new Microsoft.Win32.OpenFileDialog();
-			openFileDialog.DefaultExt = ".xml";
-			openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
-			openFileDialog.FileName = xmlFile;
-			if (openFileDialog.ShowDialog().Value)
-			{
-				repository = new XMLRepository(openFileDialog.FileName);
-				loadLanguage();
-			}
-		}
-
-		private void SQLRepository_Click(object sender, RoutedEventArgs e)
-		{
-			repository = new SqlRepository(SqlRepository.CONNECTION_STRING);
-			loadAllLanguages();
-			loadLanguage();
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
@@ -533,6 +545,7 @@ namespace Dictionary
 				languageWindow.LanguageWindowToLanguage(language);
 				if (repository.CreateLanguage(language))
 					break;
+				languageWindow = new LanguageWindow(Dictionary.LanguageWindow.UseLanguageWindow.CreateLanguage, language);
 			}
 			repository.SetSourceLanguage(language.Code);
 			loadAllLanguages();

@@ -133,6 +133,7 @@ namespace Dictionary
 			return true;
 		}
 
+		#region Handlers
 		private void TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (!loaded)
@@ -152,5 +153,6 @@ namespace Dictionary
 			this.DialogResult = true;
 			this.Close();
 		}
+		#endregion
 	}
 }

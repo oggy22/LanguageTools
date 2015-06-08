@@ -13,6 +13,11 @@ namespace Oggy.Repository
 		XDocument document;
 		string filename;
 
+		public XMLRepository()
+			: this("Dictionary.xml")
+		{
+		}
+
 		public XMLRepository(string filename)
 		{
 			this.filename = filename;
