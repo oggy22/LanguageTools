@@ -16,22 +16,25 @@ namespace Oggy.Transliterator.Rules
         Dictionary<char, string> jokers;
 
         RuleCollection ruleCollection;
+		HashSet<string> counterExamples;
+
 #endregion
-        
-#region Constructors
-        /// <summary>
+
+		  #region Constructors
+		  /// <summary>
         /// Creates a Rule
         /// </summary>
         /// <param name="source">Source of of the rule.</param>
         /// <param name="destination">Destination of the rule.</param>
         /// <param name="jokers"></param>
         /// <param name="ruleCollection">Containing RuleCollection.</param>
-        public Rule(string source, string destination, Dictionary<char, string> jokers, RuleCollection ruleCollection)
+        public Rule(string source, string destination, Dictionary<char, string> jokers, RuleCollection ruleCollection, IEnumerable<string> counterExamples=null)
         {
             this.ruleCollection = ruleCollection;
             this.RawSource = source;
             this.destination = destination;
             this.jokers = jokers;
+				this.counterExamples = counterExamples != null ? new HashSet<string>(counterExamples) : null;
 
 			if (source != string.Empty)
 			{
@@ -155,6 +158,12 @@ namespace Oggy.Transliterator.Rules
 					return false;
 			}
 
+			  if (this.counterExamples != null)
+			  {
+				  if (this.counterExamples.Contains(text.CurrentWord))
+					  return false;
+			  }
+
             return true;
         }
 
@@ -201,7 +210,7 @@ namespace Oggy.Transliterator.Rules
         /// <param name="rule1">Left rule</param>
         /// <param name="rule2">Right rule</param>
         /// <returns>True if the left rule is greater (i.e more appropriate) than the right rule</returns>
-        static public bool operator >(Rule rule1, Rule rule2)
+        static public bool operator > (Rule rule1, Rule rule2)
         {
             if (rule1.source.Length > rule2.source.Length)
                 return true;

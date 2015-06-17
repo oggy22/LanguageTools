@@ -29,7 +29,7 @@ namespace Oggy.Transliterator
             }
         }
 
-        public override string Transliterate(string text)
+		public override string Transliterate(string text, bool dashes = false)
         {
             string output = text;
 

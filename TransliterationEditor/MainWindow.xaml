@@ -33,6 +33,7 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
@@ -41,9 +42,9 @@
             <TextBox Grid.Row="1" Grid.Column="0" Name="txtSource" FontSize="18" TextWrapping="Wrap" TextChanged="TextBox_TextChanged"/>
             <TextBox Grid.Row="1" Grid.Column="1" Name="txtDestination" FontSize="18" IsReadOnly="True" TextWrapping="Wrap" />
             <CheckBox Grid.Row="2" Grid.Column="0" Name="checkWithDashes" FontSize="10" Click="checkWithDashes_Click">Transliterate with dashes</CheckBox>
-            <DataGrid Name="dataGridRules" AutoGenerateColumns="False" CanUserDeleteRows="True"
-                      Grid.Row="3" 
-                      Grid.Column="0" >
+            <TextBox Grid.Row="3" Grid.Column="0" Name="txtRulesFilter" TextChanged="txtRulesFilter_TextChanged" />
+            <TextBox Grid.Row="3" Grid.Column="1" Name="txtExamplesFilter" TextChanged="txtExamplesFilter_TextChanged" />
+            <DataGrid Grid.Row="4" Grid.Column="0" Name="dataGridRules" AutoGenerateColumns="False" CanUserDeleteRows="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" IsReadOnly="False" />
                     <DataGridTextColumn Header="Destination" Binding="{Binding Path=Destination}" IsReadOnly="False" />
@@ -53,9 +54,7 @@
                     <DataGridTextColumn Header="Comment" Binding="{Binding Path=Comment}" IsReadOnly="False" />
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid Name="dataGridExamples" AutoGenerateColumns="False" CanUserDeleteRows="True" CanUserAddRows="True"
-                      Grid.Row="3"
-                      Grid.Column="1" >
+            <DataGrid Grid.Row="4" Grid.Column="1" Name="dataGridExamples" AutoGenerateColumns="False" CanUserDeleteRows="True" CanUserAddRows="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" IsReadOnly="False" />
                     <DataGridTextColumn Header="Destination" Binding="{Binding Path=Destination}" IsReadOnly="False" />
@@ -69,7 +68,7 @@
                     <DataGridCheckBoxColumn Header="Disabled" Binding="{Binding Path=Disabled}" IsReadOnly="False" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextBlock.FontSize="18" Click="Button_Click">Reload and retest</Button>
+            <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" TextBlock.FontSize="18" Click="Button_Click">Reload and retest</Button>
         </Grid>
     </Grid>
 </Window>

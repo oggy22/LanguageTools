@@ -7,7 +7,7 @@ namespace Oggy.Transliterator
 {
     public abstract class TransliteratorBase
     {
-        public abstract string Transliterate(string text);
+		 public abstract string Transliterate(string text, bool dashes = false);
 
         /// <summary>
         /// Message to be displayed if the transliteration was not direct, e.g. EN->SR->DE

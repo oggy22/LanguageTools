@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleTranslate", "GoogleTr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryMetro", "DictionaryMetro\DictionaryMetro.csproj", "{49ED8320-D114-4BAB-971A-EB2350266C13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDictionary", "TestDictionary\TestDictionary.csproj", "{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -461,6 +463,30 @@ Global
 		{49ED8320-D114-4BAB-971A-EB2350266C13}.Release|x86.ActiveCfg = Release|Any CPU
 		{49ED8320-D114-4BAB-971A-EB2350266C13}.Release|x86.Build.0 = Release|Any CPU
 		{49ED8320-D114-4BAB-971A-EB2350266C13}.Release|x86.Deploy.0 = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|Any CPU.Build.0 = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|ARM.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|Mixed Platforms.Build.0 = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|Win32.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|x64.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.IIS 6.0|x86.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|Win32.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DFFBFBE-D52D-415E-A0D9-DB7B1574AEDD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

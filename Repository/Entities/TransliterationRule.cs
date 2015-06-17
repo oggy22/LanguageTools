@@ -80,7 +80,7 @@ namespace Oggy.Repository.Entities
         }
         #endregion
 
-        #region
+        #region Constructors
         public TransliterationRule()
         {
         }
@@ -103,6 +103,11 @@ namespace Oggy.Repository.Entities
         {
             return Source + "->" + Destination;
         }
+
+		public bool Contains(string s)
+		{
+			return source.Contains(s) || destination.Contains(s) || examples.Contains(s) || counterExamples.Contains(s);
+		}
 
         /// <summary>
         /// Fires the PropertyChanged event.

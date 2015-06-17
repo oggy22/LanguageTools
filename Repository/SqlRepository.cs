@@ -24,7 +24,7 @@ namespace Oggy.Repository
 		internal SqlConnection connection;
 		#endregion
 
-		#region Constructors
+		#region Constructors and Refresh
 		public SqlRepository()
 			: this(CONNECTION_STRING)
 		{
@@ -35,6 +35,15 @@ namespace Oggy.Repository
 			connection = new SqlConnection(connectionString);
 			connection.Open();
 			SetUp();
+		}
+
+		private void Refresh()
+		{
+			if (connection.State != ConnectionState.Open)
+			{
+				connection.Close();
+				connection.Open();
+			}
 		}
 		#endregion
 
@@ -51,6 +60,7 @@ namespace Oggy.Repository
 
 		public override Language RetreiveLanguage(string code)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Languages WHERE LangId='" + code + "'", connection);
 			SqlDataReader reader = cmd.ExecuteReader();
 			if (!reader.Read())
@@ -77,18 +87,28 @@ namespace Oggy.Repository
 			return language;
 		}
 
-		public override void UpdateLanguage(Language code)
+		public override void UpdateLanguage(Language language)
 		{
-			throw new NotImplementedException();
+			Refresh();
+			
+			// Update name and alphabet
+			SqlCommand cmd = new SqlCommand("UPDATE Languages"
+				+ " SET"
+				+ " Name=N'" + language.Name + "',"
+				+ " Alphabet=N'" + language.Alphabet + "'"
+				+ " WHERE LangId='" + language.Code + "'",
+				connection);
+			cmd.ExecuteNonQuery();
 		}
 
 		public override bool DeleteLanguage(string code)
 		{
-			return true;
+			return false;
 		}
 
 		public override IEnumerable<Language> ListLanguages(bool enabledOnly = false)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 "SELECT * FROM Languages" + (enabledOnly ? " WHERE Enabled='TRUE'" : string.Empty)
 				 , connection);
@@ -112,6 +132,7 @@ namespace Oggy.Repository
 		#region CRUD Transliteration Rules
 		public override List<TransliterationRule> ListRules(bool enabledOnly = true)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand("SELECT * FROM TransPhonetic WHERE LangId1='" +
 				 srcLanguage.Code + "' AND LangId2='" + dstLanguage.Code + "'" +
 				 (enabledOnly ? " AND Disabled='FALSE'" : string.Empty),
@@ -138,6 +159,7 @@ namespace Oggy.Repository
 
 		public override void CreateRule(TransliterationRule rule)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 "INSERT INTO TransPhonetic " +
 				 "(LangId1, LangId2, Source, Destination, Examples, CounterExamples, Comment, Disabled) " +
@@ -151,6 +173,7 @@ namespace Oggy.Repository
 
 		public override void UpdateRule(TransliterationRule rule, string source)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 string.Format("UPDATE TransPhonetic SET " +
 				 "Source=N'{0}', Destination=N'{1}', Examples=N'{2}', CounterExamples=N'{3}', Comment=N'{4}', Disabled=N'{5}' " +
@@ -164,6 +187,7 @@ namespace Oggy.Repository
 
 		public override void DeleteRule(string source)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 string.Format("DELETE FROM TransPhonetic WHERE LangId1='{0}' AND LangId2='{1}' AND Source='{2}'",
 				 srcLanguage.Code, dstLanguage.Code, source),
@@ -177,6 +201,7 @@ namespace Oggy.Repository
 
 		public override List<TransliterationExample> ListExamples(bool enabledOnly = false)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand("SELECT * FROM TransExamples WHERE LangId1='"
 				 + srcLanguage.Code + "' AND LangId2='" + dstLanguage.Code + "'" +
 				 (enabledOnly ? " AND Disabled='FALSE'" : string.Empty),
@@ -200,6 +225,7 @@ namespace Oggy.Repository
 
 		public override void CreateExample(TransliterationExample example)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 "INSERT INTO TransExamples (LangId1, LangId2, Word, Transliteration, Disabled) " +
 				 string.Format("VALUES ('{0}', '{1}', N'{2}', N'{3}', '{4}')",
@@ -212,6 +238,7 @@ namespace Oggy.Repository
 
 		public override void UpdateExample(TransliterationExample example, string word)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 string.Format("UPDATE TransExamples SET Word=N'{0}', Transliteration=N'{1}', Disabled='{2}' " +
 				 "WHERE LangId1='{3}' AND LangId2='{4}' AND Word=N'{5}'",
@@ -225,6 +252,7 @@ namespace Oggy.Repository
 
 		public override void DeleteExample(string word)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 string.Format("DELETE FROM TransExamples WHERE LangId1='{0}' AND LangId2='{1}' AND Word='{2}'",
 				 srcLanguage.Code, dstLanguage.Code, word),
@@ -238,6 +266,7 @@ namespace Oggy.Repository
 		#region Jokers
 		public override Dictionary<char, string> GetJokers()
 		{
+			Refresh();
 			Dictionary<char, string> jokers = new Dictionary<char, string>();
 
 			SqlCommand cmd = new SqlCommand("SELECT JokerSign, JokerExchange FROM Jokers WHERE LangId='"
@@ -274,6 +303,7 @@ namespace Oggy.Repository
 		#region TextSamples
 		public override List<TextSample> ListTextSamples(string langCode)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand("SELECT Title, Text FROM TextSamples WHERE LangId='" +
 				 langCode + "'", connection);
 			SqlDataReader reader = cmd.ExecuteReader();
@@ -295,6 +325,7 @@ namespace Oggy.Repository
 
 		public override Dictionary<char, double> LoadLetterDistribution(string langCode)
 		{
+			Refresh();
 			SqlCommand cmd = new SqlCommand("SELECT Letter, RelativeFrequency FROM Letters WHERE LangId='" +
 				 langCode + "'", connection);
 			SqlDataReader reader = cmd.ExecuteReader();
@@ -311,6 +342,7 @@ namespace Oggy.Repository
 
 		public override void CreateWord(Word word)
 		{
+			Refresh();
 			string langCode = this.srcLanguage.Code;
 			DateTime now = DateTime.Now;
 			SqlCommand cmd = new SqlCommand(
@@ -329,6 +361,7 @@ namespace Oggy.Repository
 
 		public override void DeleteWord(string word)
 		{
+			Refresh();
 			string langCode = this.srcLanguage.Code;
 			SqlCommand cmd = new SqlCommand(
 				 "DELETE FROM Words " +
@@ -339,6 +372,7 @@ namespace Oggy.Repository
 
 		public override void UpdateWord(Word word)
 		{
+			Refresh();
 			string langCode = this.srcLanguage.Code;
 			SqlCommand cmd = new SqlCommand(
 				 "UPDATE Words " +
@@ -350,6 +384,7 @@ namespace Oggy.Repository
 
 		public override IEnumerable<Word> ListWords()
 		{
+			Refresh();
 			string langCode = this.srcLanguage.Code;
 			SqlCommand cmd = new SqlCommand("SELECT Word, Trans, Status, WordType, dateCreated, dateModified FROM Words WHERE LangId='" +
 				 langCode + "'", connection);

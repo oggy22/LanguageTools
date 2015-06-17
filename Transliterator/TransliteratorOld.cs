@@ -74,7 +74,7 @@ namespace Oggy.Transliterator
 			return destination;
 		}
 
-        public override string Transliterate(string text)
+		public override string Transliterate(string text, bool dashes = false)
         {
             return TransliterateFinal(text, false);
         }

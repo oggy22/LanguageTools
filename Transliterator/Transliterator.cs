@@ -16,7 +16,7 @@ namespace Oggy.Transliterator
 
 		public List<TransliterationExample> ExamplesToUpdate { get; private set; }
 
-		public override string Transliterate(string text)
+		public override string Transliterate(string text, bool dashes=false)
 		{
 			SourceTextWithIterator source = new SourceTextWithIterator(text);
 			string destination = string.Empty;
@@ -33,6 +33,13 @@ namespace Oggy.Transliterator
 				{
 					add = rule.Apply(source);
 				}
+
+				if (dashes
+					&& destination.Length > 0
+					&& char.IsLetter(destination.Last())
+					&& add.Length > 0
+					&& char.IsLetter(add.First()))
+					destination += '-';
 				destination += add;
 			}
 			return destination;

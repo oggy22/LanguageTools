@@ -23,7 +23,12 @@ namespace Oggy.Transliterator.Rules
 			repository.ListRules()
 				.Where(rule => !rule.Disabled)
 				.ToList()
-				.ForEach(rule => this.AddRule(rule.Source, rule.Destination, jokers));
+				.ForEach(rule =>
+					this.AddRule(
+					rule.Source,
+					rule.Destination,
+					jokers,
+					(rule.CounterExamples ?? string.Empty).Split(new[]{ ',', ';' }, StringSplitOptions.RemoveEmptyEntries).ToList()));
 		}
 
 		protected override string GetKeyForItem(Rule rule)
@@ -48,9 +53,9 @@ namespace Oggy.Transliterator.Rules
 			return best;
 		}
 
-		public void AddRule(string source, string destination, Dictionary<char, string> jokers)
+		public void AddRule(string source, string destination, Dictionary<char, string> jokers, List<string> counterExamples)
 		{
-			this.Add(new Rule(source, destination, jokers, this));
+			this.Add(new Rule(source, destination, jokers, this, counterExamples));
 		}
 	}
 }

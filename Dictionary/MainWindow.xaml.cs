@@ -22,8 +22,9 @@ namespace Dictionary
 	{
 		ARepository repository;
 		ListBox activeListBox = null;
-		int listbox2To = 1; // either 1 or 3 representing listbox1 or listbox3 in which a word is relocated after listbox2
+		int listbox2To = 1; // either 1 or 3 representing listbox1 or listbox3 in which a word is relocated after listbox2 is double-clicked
 		const string settingsFile = "settings";
+		const string englishCode = "EN";
 		Word activeWord = null;
 		Comparison<Word> order = null;
 		Transliterator transliterator = null;
@@ -34,29 +35,21 @@ namespace Dictionary
 			InitializeComponent();
 			loadSettings();
 
-			try
-			{
-				loadAllLanguages();
+			loadAllLanguages();
 
-				// Create English if it doesn't exist and set it as the source language
-				if (!repository.ListLanguages().Any(lang => lang.Code == "EN"))
+			// Create English if it doesn't exist and set it as the source language
+			if (!repository.ListLanguages().Any(lang => lang.Code == englishCode))
+			{
+				repository.CreateLanguage(new Oggy.Repository.Entities.Language()
 				{
-					repository.CreateLanguage(new Oggy.Repository.Entities.Language()
-					{
-						Code = "EN",
-						Name = "English",
-						Alphabet = "abcdefghijklmnopqrstuvwxyz",
-						WordTypes = new HashSet<string>() { "noun", "verb", "adjective", "adverb"}
-					});
-				}
-				repository.SetSourceLanguage("EN");
+					Code = englishCode,
+					Name = "English",
+					Alphabet = "abcdefghijklmnopqrstuvwxyz",
+					WordTypes = new HashSet<string>() { "noun", "verb", "adjective", "adverb" }
+				});
+			}
 
-				loadLanguage();
-			}
-			catch (Exception exp)
-			{
-				MessageBox.Show("The application crashed because of the following exception: " + exp.ToString());
-			}
+			loadLanguage();
 		}
 
 		private void saveSettings()
@@ -79,9 +72,6 @@ namespace Dictionary
 
 		private void loadSettings()
 		{
-			XMLRepository rep = new XMLRepository("Dictionary.xml");
-			var type = rep.GetType();
-	
 			try
 			{
 				var reader = new StreamReader(settingsFile);
@@ -112,6 +102,8 @@ namespace Dictionary
 
 		private void loadLanguage()
 		{
+			if (repository.srcLanguage == null)
+				repository.SetSourceLanguage(englishCode);
 			loadWordTypes();
 			loadWords();
 			loadTransliterator();
@@ -157,8 +149,7 @@ namespace Dictionary
 			if (repository.srcLanguage.WordTypes == null)
 				return;
 
-			List<string> list = repository.srcLanguage.WordTypes.ToList();
-			foreach (string s in list)
+			foreach (string s in repository.srcLanguage.WordTypes.ToList())
 				comboWordTypes.Items.Add(s);
 		}
 

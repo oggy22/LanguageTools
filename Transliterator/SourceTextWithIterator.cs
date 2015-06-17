@@ -50,6 +50,24 @@ namespace Oggy
 			}
 		}
 
+		public string CurrentWord
+		{
+			get
+			{
+				if (!InWord && !char.IsLetter(CurrentCharacter))
+					return string.Empty;
+				int begin = Position;
+				while (begin >= 0 && char.IsLetter(text[begin]))
+					begin--;
+				if (begin < 0)
+					begin = 0;
+				int end = Position;
+				while (end < text.Length && char.IsLetter(text[end]))
+					end++;
+				return text.Substring(begin, end - begin);
+			}
+		}
+
 		public int LeftCharacters
 		{
 			get

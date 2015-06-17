@@ -18,7 +18,7 @@
 		<TextBox Name="txtLanguage"  Grid.Row="0" Grid.Column="1" TextChanged="TextChanged"/>
 		<Label Name="lblCode" Grid.Row="1" Grid.Column="0" ToolTip="e.g. EN">Code:</Label>
 		<TextBox Name="txtCode" Grid.Row="1" Grid.Column="1" TextChanged="TextChanged" />
-		<Label Name="lblAlphabet" Grid.Row="2" Grid.Column="0" ToolTip="e.g. abcd...zyx">Alphabet:</Label>
+		<Label Name="lblAlphabet" Grid.Row="2" Grid.Column="0" ToolTip="e.g. abcd...xyz">Alphabet:</Label>
 		<TextBox Name="txtAlphabet" Grid.Row="2" Grid.Column="1" TextChanged="TextChanged"/>
 
 		<DataGrid Name="dataWordTypes"
@@ -33,6 +33,7 @@
 				<DataGridTextColumn
 					Binding="{Binding Path=Value}"
 					Header="WordType"
+					Width="*"
 					IsReadOnly="False">
 				</DataGridTextColumn>
 			</DataGrid.Columns>

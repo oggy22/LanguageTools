@@ -10,7 +10,7 @@ namespace Oggy.Transliterator
     /// </summary>
     public class EmptyTransliterator : TransliteratorBase
     {
-        public override string Transliterate(string text)
+		 public override string Transliterate(string text, bool dashes = false)
         {
             return text;
         }

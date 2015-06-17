@@ -32,8 +32,9 @@ namespace TransliterationEditor
         private SqlRepository repository;
         Language sourceLanguage = null;
         Language destinationLanguage = null;
+		RuleCollection rules;
 
-        #endregion
+		#endregion
 
         #region Methods
         
@@ -78,11 +79,11 @@ namespace TransliterationEditor
             Title = caption;
 
             // Load rules
-            RuleCollection rules = new RuleCollection(repository);
-            dataGridRules.ItemsSource = rules;
+			rules = new RuleCollection(repository);
+			dataGridRules.ItemsSource = rules;
             transliterator = new Transliterator(repository, sourceLanguage.Code, destinationLanguage.Code);
-            TransliterationExample.Transliterator = (s => transliterator[s]);
-            TransliterationExample.Trans_li_te_rator = ( s => transliterator[s]);
+			TransliterationExample.Transliterator = (s => transliterator.Transliterate(s, false));
+			TransliterationExample.Trans_li_te_rator = (s => transliterator.Transliterate(s, true));
             rules.MyTransliterator = transliterator;
 
             // Load TransliterationExamples
@@ -114,7 +115,7 @@ namespace TransliterationEditor
 
         private void UpdateTranslireation()
         {
-            txtDestination.Text = transliterator[txtSource.Text];
+			  txtDestination.Text = transliterator.Transliterate(txtSource.Text, this.checkWithDashes.IsChecked.Value);
         }
 
         private bool triggerReloadForCombos = false;
@@ -151,11 +152,9 @@ namespace TransliterationEditor
             MessageBox.Show("There are " + correct + "/" + total + " correct/total examples ratio.\n" + (total-correct) + " incorrect examples (" +  (int)(100 * (double)(incorrect)/total) +"%)");
         }
 
-        #endregion
-
         private void checkWithDashes_Click(object sender, RoutedEventArgs e)
         {
-            UpdateTranslireation();
+			  UpdateTranslireation();
         }
 
         private void AddExamples_Click(object sender, RoutedEventArgs e)
@@ -238,10 +237,28 @@ namespace TransliterationEditor
             int sourceIndex = sourceLanguageCombo.SelectedIndex;
             sourceLanguageCombo.SelectedIndex = destinationLanguageCombo.SelectedIndex;
             destinationLanguageCombo.SelectedIndex = sourceIndex;
-            
+
             // Reload everthing
             triggerReloadForCombos = true;
             ReloadEverything();
         }
-    }
+
+		private void txtRulesFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			CollectionViewSource.GetDefaultView(rules).Filter = obj =>
+			{
+				return (obj as TransliterationRule).Contains(txtRulesFilter.Text);
+			};
+		}
+
+		private void txtExamplesFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			CollectionViewSource.GetDefaultView(examplesCollection).Filter = obj =>
+			{
+				return (obj as TransliterationExample).Contains(txtExamplesFilter.Text);
+			};
+		}
+
+		#endregion
+	}
 }
