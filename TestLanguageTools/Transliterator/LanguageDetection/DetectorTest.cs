@@ -5,13 +5,13 @@ using System;
 
 namespace TestLanguageTools
 {
-    [TestClass()]
+    [TestClass]
     public class DetectorTest
     {
         /// <summary>
         ///A test for detect
         ///</summary>
-        [TestMethod(), Ignore()]
+        [TestMethod, Ignore]
         public void detectTest()
         {
             SqlRepository repository = new SqlRepository();

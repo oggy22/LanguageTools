@@ -13,7 +13,7 @@ namespace TransliteratorTest.LanguageRepository
     ///This is a test class for ARepositoryTest and is intended
     ///to contain all ARepositoryTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class ARepositoryTest
     {
         internal virtual ARepository CreateARepository()

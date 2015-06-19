@@ -152,6 +152,21 @@ namespace Oggy.Repository
 					Disabled = reader.GetBoolean(7)
 				};
 				list.Add(rule);
+
+				// German Sharp s handling: SQL treats sharp s and double ss the same.
+				// This is a workaround.
+				if (srcLanguage.Code == "DE" && rule.Source == "ß" && !rule.Disabled)
+				{
+					list.Add(new TransliterationRule
+					{
+						Source = "ss",
+						Destination = rule.Destination,
+						Examples = string.Empty,
+						CounterExamples = string.Empty,
+						Disabled = false,
+						Comment = "This is automatically created rule based on ß rule"
+					});
+				}
 			}
 			reader.Close();
 			return list;

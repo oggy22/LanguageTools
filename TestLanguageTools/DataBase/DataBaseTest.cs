@@ -172,7 +172,7 @@ namespace TestLanguageTools.DataBase
             //if they all pass, the rule should be wihtout the break
         }
 
-        [TestMethod(), Ignore()]
+        [TestMethod, Ignore]
         public void TestAllLanguagePairs()
         {
             LoadLanguagePairs();
