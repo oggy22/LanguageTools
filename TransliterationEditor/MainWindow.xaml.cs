@@ -84,17 +84,14 @@ namespace TransliterationEditor
             transliterator = new Transliterator(repository, sourceLanguage.Code, destinationLanguage.Code);
 			TransliterationExample.Transliterator = (s => transliterator.Transliterate(s, false));
 			TransliterationExample.Trans_li_te_rator = (s => transliterator.Transliterate(s, true));
-            rules.MyTransliterator = transliterator;
+			rules.MyTransliterator = transliterator;
 
             // Load TransliterationExamples
             examplesCollection = new ExampleCollection(repository);
             dataGridExamples.ItemsSource = examplesCollection;
 
-            // Add all the examples to the update list	//todo:
-			//foreach (var example in examplesCollection)
-			//	transliterator.ExamplesToUpdate.Add(example);
-
-            TextBox_TextChanged(null, null);
+			TransliterationExample.DestinationFunc = WordDistance.CalculateDistance;
+			TextBox_TextChanged(null, null);
         }
 
         private ExampleCollection examplesCollection;
@@ -233,15 +230,27 @@ namespace TransliterationEditor
             repository.srcLanguage = sourceLanguage;
             repository.dstLanguage = destinationLanguage;
 
-            triggerReloadForCombos = false;
-            int sourceIndex = sourceLanguageCombo.SelectedIndex;
-            sourceLanguageCombo.SelectedIndex = destinationLanguageCombo.SelectedIndex;
-            destinationLanguageCombo.SelectedIndex = sourceIndex;
+			triggerReloadForCombos = false;
+			int sourceIndex = sourceLanguageCombo.SelectedIndex;
+			sourceLanguageCombo.SelectedIndex = destinationLanguageCombo.SelectedIndex;
+			destinationLanguageCombo.SelectedIndex = sourceIndex;
 
-            // Reload everthing
-            triggerReloadForCombos = true;
-            ReloadEverything();
-        }
+			// Reload everthing
+			triggerReloadForCombos = true;
+			ReloadEverything();
+		}
+
+		private void ReloadLanguages_Click(object sender, RoutedEventArgs e)
+		{
+			triggerReloadForCombos = false;
+			int sourceIndex = sourceLanguageCombo.SelectedIndex;
+			sourceLanguageCombo.SelectedIndex = destinationLanguageCombo.SelectedIndex;
+			destinationLanguageCombo.SelectedIndex = sourceIndex;
+
+			// Reload everthing
+			triggerReloadForCombos = true;
+			ReloadEverything();
+		}
 
 		private void txtRulesFilter_TextChanged(object sender, TextChangedEventArgs e)
 		{

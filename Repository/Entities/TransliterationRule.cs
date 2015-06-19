@@ -106,7 +106,7 @@ namespace Oggy.Repository.Entities
 
 		public bool Contains(string s)
 		{
-			return source.Contains(s) || destination.Contains(s) || examples.Contains(s) || counterExamples.Contains(s);
+			return source.Contains(s) || destination.Contains(s) || examples.Contains(s) || (counterExamples ?? string.Empty).Contains(s);
 		}
 
         /// <summary>

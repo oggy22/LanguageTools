@@ -18,7 +18,8 @@
                 <MenuItem Header="Add Examples" Click="AddExamples_Click" />
                 <MenuItem Header="Reverse Transliteration" Click="ReverseTransliteration_Click" />
             </MenuItem>
-                <MenuItem Header="Switch Languages" Click="SwitchLanguages_Click" />
+            <MenuItem Header="Switch Languages" Click="SwitchLanguages_Click" />
+            <MenuItem Header="Reload Languages" Click="ReloadLanguages_Click" />
             <MenuItem Header="Help">
                 <MenuItem Header="About" />
             </MenuItem>
@@ -65,6 +66,7 @@
                         Binding="{Binding Path=Tran_sli_te_rated}"
                         IsReadOnly="True" />
                     <DataGridTextColumn Header="Correct" Binding="{Binding Path=Correct}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Distance" Binding="{Binding Path=Distance}" IsReadOnly="True" />
                     <DataGridCheckBoxColumn Header="Disabled" Binding="{Binding Path=Disabled}" IsReadOnly="False" />
                 </DataGrid.Columns>
             </DataGrid>

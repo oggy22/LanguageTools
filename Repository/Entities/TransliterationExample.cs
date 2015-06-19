@@ -20,8 +20,10 @@ namespace Oggy.Repository.Entities
         public static Func<string, string> Transliterator = null;
 
         public static Func<string, string> Trans_li_te_rator = null;
-        
-        #region Properties
+
+		public static Func<string, string, int> DestinationFunc = null;
+
+		#region Properties
 
         private string source;
         public string Source
@@ -59,10 +61,20 @@ namespace Oggy.Repository.Entities
         public string Tran_sli_te_rated
         {   private set; get; }
 
+		public int Distance
+		{
+			get
+			{
+				return DestinationFunc(Destination, Transliterated);
+			}
+		}
+
         public bool Correct
         {
             get
-            { return Destination == Transliterated; }
+            {
+				return Destination == Transliterated;
+			}
         }
 
         private bool disabled;

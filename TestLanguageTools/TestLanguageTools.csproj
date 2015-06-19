@@ -63,6 +63,7 @@
     <Compile Include="DataBase\DataBaseTest.cs" />
     <Compile Include="LanguageRepository\XMLRepositoryTest.cs" />
     <Compile Include="TextAnalyzer\TextAnalyzerTest.cs" />
+    <Compile Include="TransliterationEditor\WordDistanceTest.cs" />
     <Compile Include="Transliterator\LanguageDetection\DetectorTest.cs" />
     <Compile Include="LanguageRepository\ARepositoryTest.cs" />
     <Compile Include="Transliterator\LanguageDetection\LetterDistributionTest.cs" />
@@ -83,6 +84,10 @@
       <Project>{9a334bf9-42ce-4db5-91d4-4443a83f20cb}</Project>
       <Name>TextAnalyzer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TransliterationEditor\TransliterationEditor.csproj">
+      <Project>{9ef6c17f-20dc-4ba7-a493-27917df4cc9a}</Project>
+      <Name>TransliterationEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Transliterator\Transliterator.csproj">
       <Project>{9AEF5ED9-6361-4728-820F-4FDACA1D5733}</Project>
       <Name>Transliterator</Name>
@@ -90,7 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Test References\" />
-    <Folder Include="Transliteration\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

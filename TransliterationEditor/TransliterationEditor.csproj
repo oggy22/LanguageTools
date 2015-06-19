@@ -83,6 +83,7 @@
     <Compile Include="ReverseTransliteration.xaml.cs">
       <DependentUpon>ReverseTransliteration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WordDistance.cs" />
     <Page Include="AddExamples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
