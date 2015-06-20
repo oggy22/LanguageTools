@@ -45,6 +45,13 @@ namespace Oggy.Repository
 				connection.Open();
 			}
 		}
+
+		public static string Normalize(string s)
+		{
+			if (s == null)
+				return string.Empty;
+			return s.Replace("'", "''");
+		}
 		#endregion
 
 		#region CRUDL for Languages
@@ -179,8 +186,12 @@ namespace Oggy.Repository
 				 "INSERT INTO TransPhonetic " +
 				 "(LangId1, LangId2, Source, Destination, Examples, CounterExamples, Comment, Disabled) " +
 				 string.Format("VALUES ('{0}', '{1}', N'{2}', N'{3}', N'{4}', N'{5}', '{6}', '{7}')",
-				 this.srcLanguage.Code, this.dstLanguage.Code,
-				 rule.Source, rule.Destination, rule.Examples, rule.CounterExamples, rule.Comment, rule.Disabled),
+				 this.srcLanguage.Code,
+				 this.dstLanguage.Code,
+				 Normalize(rule.Source), Normalize(rule.Destination),
+				 Normalize(rule.Examples),
+				 Normalize(rule.CounterExamples),
+				 Normalize(rule.Comment), rule.Disabled),
 				 connection);
 			if (cmd.ExecuteNonQuery() != 1)
 				throw new Exception("SQL INSERT did not affect 1 column");
@@ -193,7 +204,12 @@ namespace Oggy.Repository
 				 string.Format("UPDATE TransPhonetic SET " +
 				 "Source=N'{0}', Destination=N'{1}', Examples=N'{2}', CounterExamples=N'{3}', Comment=N'{4}', Disabled=N'{5}' " +
 				 "WHERE LangId1=N'{6}' AND LangId2=N'{7}' AND Source=N'{8}'",
-				 rule.Source, rule.Destination, rule.Examples, rule.CounterExamples, rule.Comment, rule.Disabled,
+				 Normalize(rule.Source),
+				 Normalize(rule.Destination),
+				 Normalize(rule.Examples),
+				 Normalize(rule.CounterExamples),
+				 Normalize(rule.Comment),
+				 rule.Disabled,
 				 this.srcLanguage.Code, this.dstLanguage.Code, source), connection);
 
 			if (cmd.ExecuteNonQuery() != 1)
@@ -205,7 +221,7 @@ namespace Oggy.Repository
 			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 string.Format("DELETE FROM TransPhonetic WHERE LangId1='{0}' AND LangId2='{1}' AND Source='{2}'",
-				 srcLanguage.Code, dstLanguage.Code, source),
+				 srcLanguage.Code, dstLanguage.Code, Normalize(source)),
 				 connection);
 			if (cmd.ExecuteNonQuery() != 1)
 				throw new Exception("SQL DELETE did not affect 1 row");
@@ -245,7 +261,9 @@ namespace Oggy.Repository
 				 "INSERT INTO TransExamples (LangId1, LangId2, Word, Transliteration, Disabled) " +
 				 string.Format("VALUES ('{0}', '{1}', N'{2}', N'{3}', '{4}')",
 				 this.srcLanguage.Code, this.dstLanguage.Code,
-				 example.Source, example.Destination, example.Disabled),
+				 Normalize(example.Source),
+				 Normalize(example.Destination ?? string.Empty),
+				 example.Disabled),
 				 connection);
 			if (cmd.ExecuteNonQuery() != 1)
 				throw new Exception("SQL INSERT did not affect 1 column");
@@ -257,8 +275,8 @@ namespace Oggy.Repository
 			SqlCommand cmd = new SqlCommand(
 				 string.Format("UPDATE TransExamples SET Word=N'{0}', Transliteration=N'{1}', Disabled='{2}' " +
 				 "WHERE LangId1='{3}' AND LangId2='{4}' AND Word=N'{5}'",
-				 example.Source, example.Destination, example.Disabled,
-				 this.srcLanguage.Code, this.dstLanguage.Code, word),
+				 Normalize(example.Source), Normalize(example.Destination), example.Disabled,
+				 this.srcLanguage.Code, this.dstLanguage.Code, Normalize(word)),
 				 connection);
 
 			if (cmd.ExecuteNonQuery() != 1)
@@ -270,7 +288,7 @@ namespace Oggy.Repository
 			Refresh();
 			SqlCommand cmd = new SqlCommand(
 				 string.Format("DELETE FROM TransExamples WHERE LangId1='{0}' AND LangId2='{1}' AND Word='{2}'",
-				 srcLanguage.Code, dstLanguage.Code, word),
+				 srcLanguage.Code, dstLanguage.Code, Normalize(word)),
 				 connection);
 			if (cmd.ExecuteNonQuery() != 1)
 				throw new Exception("SQL DELETE did not affect 1 row");
@@ -338,6 +356,7 @@ namespace Oggy.Repository
 		}
 		#endregion
 
+		#region CRUD Words
 		public override Dictionary<char, double> LoadLetterDistribution(string langCode)
 		{
 			Refresh();
@@ -364,8 +383,8 @@ namespace Oggy.Repository
 				 "INSERT INTO Words (LangId, Word, Trans, Status, WordType, dateCreated, dateModified) " +
 				 "VALUES ('"
 				 + langCode + "', N'"
-				 + word.Name + "', N'"
-				 + word.Translation + "', "
+				 + Normalize(word.Name) + "', N'"
+				 + Normalize(word.Translation) + "', "
 				 + word.status + ", N'"
 				 + word.Type + "', '"
 				 + now.ToString("yyyy-MM-dd HH:mm:ss") + "', '"
@@ -380,7 +399,7 @@ namespace Oggy.Repository
 			string langCode = this.srcLanguage.Code;
 			SqlCommand cmd = new SqlCommand(
 				 "DELETE FROM Words " +
-				 "WHERE LangId='" + langCode + "' AND Word=N'" + word + "'",
+				 "WHERE LangId='" + langCode + "' AND Word=N'" + Normalize(word) + "'",
 				 connection);
 			cmd.ExecuteNonQuery();
 		}
@@ -391,7 +410,7 @@ namespace Oggy.Repository
 			string langCode = this.srcLanguage.Code;
 			SqlCommand cmd = new SqlCommand(
 				 "UPDATE Words " +
-				 "SET Status=" + word.status + ", Trans=N'" + word.Translation + "', dateModified='" + word.Modified + "' " +
+				 "SET Status=" + word.status + ", Trans=N'" + Normalize(word.Translation) + "', dateModified='" + word.Modified + "' " +
 				 "WHERE LangId='" + langCode + "' AND Word=N'" + word.Name + "'",
 				 connection);
 			cmd.ExecuteNonQuery();
@@ -418,5 +437,6 @@ namespace Oggy.Repository
 			}
 			reader.Close();
 		}
+		#endregion
 	}
 }

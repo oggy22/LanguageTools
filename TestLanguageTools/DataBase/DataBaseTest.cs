@@ -159,34 +159,46 @@ namespace TestLanguageTools.DataBase
 			}
         }
 
-		[TestMethod]
-		public void CroatianToSerbianTest()
+		[TestMethod, TestCategory("Long")]
+		public void TestCRtoSR()
 		{
 			TestLanguagePair("HR", "SR");
 		}
 
-		[TestMethod]
-		public void TestENtoSR()
-		{
-			TestPronunciationWithThreshold("EN", "SR", 10, 15);
-		}
-
-		[TestMethod]
+		[TestMethod, TestCategory("Long")]
 		public void TestDEtoSR()
 		{
 			TestLanguagePair("DE", "SR");
 		}
 
-		[TestMethod]
+		[TestMethod, TestCategory("Long")]
+		public void TestENtoSR()
+		{
+			TestPronunciationWithThreshold("EN", "SR", 10, 15);
+		}
+
+		[TestMethod, TestCategory("Long")]
+		public void TestEStoSR()
+		{
+			TestLanguagePair("ES", "SR");
+		}
+
+		[TestMethod, TestCategory("Long")]
+		public void TestFRtoSR()
+		{
+			TestLanguagePair("FR", "SR");
+		}
+
+		[TestMethod, TestCategory("Long")]
 		public void TestITtoSR()
 		{
 			TestLanguagePair("IT", "SR");
 		}
 
-		[TestMethod]
-		public void TestEStoSR()
+		[TestMethod, TestCategory("Long")]
+		public void TestRUtoSR()
 		{
-			TestLanguagePair("ES", "SR");
+			TestPronunciationWithThreshold("RU", "SR", 6, 9);
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace TestDictionary
 		{
 		}
 
-		[TestMethod]
+		[TestMethod, TestCategory("Long")]
 		public void CodedUITestMethod1()
 		{
 			string st = string.Empty;

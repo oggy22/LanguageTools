@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase\DataBaseTest.cs" />
+    <Compile Include="LanguageRepository\SqlRepositoryTest.cs" />
     <Compile Include="LanguageRepository\XMLRepositoryTest.cs" />
     <Compile Include="TextAnalyzer\TextAnalyzerTest.cs" />
     <Compile Include="TransliterationEditor\WordDistanceTest.cs" />

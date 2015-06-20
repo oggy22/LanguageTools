@@ -16,7 +16,7 @@ IF %ERRORLEVEL% NEQ 0 SET ERROR=1
 MSTest /testcontainer:TestLanguageTools\bin\Debug\TestLanguageTools.dll
 IF %ERRORLEVEL% NEQ 0 SET ERROR=1
 
-MSTest /testcontainer:TestLanguageTools\bin\Release\TestLanguageTools.dll
+MSTest /testcontainer:TestLanguageTools\bin\Release\TestLanguageTools.dll /category:"!Long"
 IF %ERRORLEVEL% NEQ 0 SET ERROR=1
 
 @if DEFINED ERROR (
