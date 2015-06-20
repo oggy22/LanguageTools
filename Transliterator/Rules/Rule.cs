@@ -5,13 +5,23 @@ using System.Text;
 
 namespace Oggy.Transliterator.Rules
 {
-    class Rule
+    public class Rule
     {
 
 #region Fields
         private int[] jokersLookUp;
 
-        private string source, destination;
+        public string Source
+		{
+			get;
+			private set;
+		}
+
+		public string Destination
+		{
+			get;
+			private set;
+		}
 
         Dictionary<char, string> jokers;
 
@@ -32,7 +42,7 @@ namespace Oggy.Transliterator.Rules
         {
             this.ruleCollection = ruleCollection;
             this.RawSource = source;
-            this.destination = destination;
+            this.Destination = destination;
             this.jokers = jokers;
 				this.counterExamples = counterExamples != null ? new HashSet<string>(counterExamples) : null;
 
@@ -67,7 +77,7 @@ namespace Oggy.Transliterator.Rules
                 }
             }
 
-            this.source = source;
+            this.Source = source;
         }
 #endregion
         
@@ -81,14 +91,14 @@ namespace Oggy.Transliterator.Rules
         public string RawSource
         { get; private set; }
 
-			  public int Jokers
-			  { get; private set; }
+		public int Jokers
+		{ get; private set; }
 
 			public int Length
 			{
 				get
 				{
-					return source.Length;
+					return Source.Length;
 				}
 			}
 #endregion
@@ -110,9 +120,9 @@ namespace Oggy.Transliterator.Rules
                     return false;
             }
 
-            for (int i = 0; i < source.Length; i++)
+            for (int i = 0; i < Source.Length; i++)
             {
-                char c = source[i];
+                char c = Source[i];
                 if (IsLetter(c))
                 {
                     if (c != text[position + i])
@@ -129,7 +139,7 @@ namespace Oggy.Transliterator.Rules
 
         public bool CanApply(SourceTextWithIterator text)
         {
-            if (text.LeftCharacters < this.source.Length)
+            if (text.LeftCharacters < this.Source.Length)
                 return false;
             
             if (WordBegins)
@@ -138,16 +148,16 @@ namespace Oggy.Transliterator.Rules
                     return false;
             }
 
-            for (int i = 0, texti = text.Position; i < this.source.Length; i++, texti++)
+            for (int i = 0, texti = text.Position; i < this.Source.Length; i++, texti++)
             {
                 if (jokersLookUp[i] == -1)
                 {
-                    if (this.source[i] != char.ToLower(text[texti]))
+                    if (this.Source[i] != char.ToLower(text[texti]))
                         return false;
                 }
                 else // So it is a joker
                 {
-                    if (jokers[source[i]].IndexOf(char.ToLower(text[texti])) == -1)
+                    if (jokers[Source[i]].IndexOf(char.ToLower(text[texti])) == -1)
                         return false;
                 }
             }
@@ -169,9 +179,9 @@ namespace Oggy.Transliterator.Rules
 
         public string Apply(SourceTextWithIterator text)
         {
-            StringBuilder ret = new StringBuilder(this.destination);
+            StringBuilder ret = new StringBuilder(this.Destination);
 
-            for (int i = 0, texti = text.Position; i < this.source.Length; i++, texti++)
+            for (int i = 0, texti = text.Position; i < this.Source.Length; i++, texti++)
             {
                 if (jokersLookUp[i] != -1)
                 {
@@ -179,7 +189,7 @@ namespace Oggy.Transliterator.Rules
 					string c = C.ToLower();
 
                     if (ruleCollection.Contains(c))
-                        ret[jokersLookUp[i]] = ruleCollection[c].destination[0];
+                        ret[jokersLookUp[i]] = ruleCollection[c].Destination[0];
                     else
                         ret[jokersLookUp[i]] = c[0];
 
@@ -188,7 +198,7 @@ namespace Oggy.Transliterator.Rules
                 }
             }
 
-			switch (text.IncrementPosition(this.source.Length))
+			switch (text.IncrementPosition(this.Source.Length))
 			{
 				case WordCapitals.UpperCase:
 					return ret.ToString().ToUpper();
@@ -212,10 +222,10 @@ namespace Oggy.Transliterator.Rules
         /// <returns>True if the left rule is greater (i.e more appropriate) than the right rule</returns>
         static public bool operator > (Rule rule1, Rule rule2)
         {
-            if (rule1.source.Length > rule2.source.Length)
+            if (rule1.Source.Length > rule2.Source.Length)
                 return true;
 
-            if (rule1.source.Length < rule2.source.Length)
+            if (rule1.Source.Length < rule2.Source.Length)
                 return false;
 
             // So rule1.source.Length == rule2.source.Length

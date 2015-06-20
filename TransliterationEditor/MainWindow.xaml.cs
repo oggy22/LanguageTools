@@ -90,7 +90,7 @@ namespace TransliterationEditor
             examplesCollection = new ExampleCollection(repository);
             dataGridExamples.ItemsSource = examplesCollection;
 
-			TransliterationExample.DestinationFunc = WordDistance.CalculateDistance;
+			TransliterationExample.DestinationFunc = Oggy.TransliterationEditor.WordDistance.CalculateDistance;
 			TextBox_TextChanged(null, null);
         }
 
@@ -243,9 +243,6 @@ namespace TransliterationEditor
 		private void ReloadLanguages_Click(object sender, RoutedEventArgs e)
 		{
 			triggerReloadForCombos = false;
-			int sourceIndex = sourceLanguageCombo.SelectedIndex;
-			sourceLanguageCombo.SelectedIndex = destinationLanguageCombo.SelectedIndex;
-			destinationLanguageCombo.SelectedIndex = sourceIndex;
 
 			// Reload everthing
 			triggerReloadForCombos = true;

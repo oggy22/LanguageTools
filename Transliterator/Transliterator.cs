@@ -10,7 +10,11 @@ namespace Oggy.Transliterator
 {
 	public class Transliterator : TransliteratorBase
 	{
-		private RuleCollection rules;
+		public RuleCollection Rules
+		{
+			get;
+			private set;
+		}
 
 		internal Dictionary<char, string> jokers;
 
@@ -23,7 +27,7 @@ namespace Oggy.Transliterator
 			while (source.LeftCharacters > 0)
 			{
 				string add;
-				Rule rule = rules.FindBestRule(source);
+				Rule rule = Rules.FindBestRule(source);
 				if (rule.RawSource == string.Empty)
 				{
 					add = source.CurrentCharacter.ToString();
@@ -55,7 +59,7 @@ namespace Oggy.Transliterator
 
 		public Transliterator(ARepository repository, string sourceLang, string destLang)
 		{
-			rules = new RuleCollection(repository, sourceLang, destLang);
+			Rules = new RuleCollection(repository, sourceLang, destLang);
 			jokers = repository.GetJokers();
 		}
 

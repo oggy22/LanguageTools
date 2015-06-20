@@ -16,14 +16,20 @@ namespace TestLanguageTools.DataBase
 
         private static List<LanguagePair> LanguagePairs = new List<LanguagePair>();
 
-        private static SqlRepository repository = new SqlRepository();
+		private static SqlRepository repository;
 
-        private static Oggy.Transliterator.TransliteratorOld transliterator = new Oggy.Transliterator.TransliteratorOld(null);
+		[ClassInitialize]
+		public static void Setup(TestContext context)
+		{
+			repository = new SqlRepository();
+		}
+
+		private static Oggy.Transliterator.Transliterator transliterator;
 
         /// <summary>
         /// Get all pairs of source and destination language for transliteration
         /// </summary>
-        private static void LoadLanguagePairs()
+        private void LoadLanguagePairs()
         {
             var languages = repository.ListLanguages();
             foreach (var lang1 in languages)
@@ -46,16 +52,44 @@ namespace TestLanguageTools.DataBase
         /// <exception cref="Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
         /// When pronunciation acquired from <code>targer.transliterate</code> is not equal to one provided in the example.
         /// </exception>
-        private void TestPronunciation(Dictionary<string, string> examples, string srcLang="", string dstLang="")
+		private void TestPronunciation(Dictionary<string, string> examples, string srcLang = "", string dstLang = "")
         {
             foreach (var example in examples)
             {
-                string actual = transliterator.TransliterateFinal(example.Key);
+				string actual = transliterator[example.Key];
 
-                Assert.AreEqual(example.Value, actual,
-                    string.Format("{0}->{1} expected {2}, but actual {3}", srcLang, dstLang, example.Value, actual));
+				Assert.AreEqual(example.Value, actual,
+					string.Format("{0}->{1} expected {2}, but actual {3}", srcLang, dstLang, example.Value, actual));
             }
         }
+
+		private void TestPronunciationWithThreshold(string srcLang, string dstLang, int failThreshold, int distanceTreshold)
+		{
+			// Load transliterator and examples
+			repository.SetSourceLanguage(srcLang);
+			repository.SetDstLanguage(dstLang);
+			transliterator = new Oggy.Transliterator.Transliterator(repository, srcLang, dstLang);
+			var examples = repository
+				.ListExamples(true)
+				.ToDictionary(example => example.Source, example => example.Destination);
+
+			int total = 0, failed = 0, totalDistance = 0;
+			foreach (var example in examples)
+			{
+				total++;
+				string actual = transliterator[example.Key];
+
+				if (example.Value != actual)
+				{
+					failed++;
+					totalDistance += Oggy.TransliterationEditor.WordDistance.CalculateDistance(example.Value, actual);
+				}
+			}
+			int failedPercentage = (100 * failed) / total;
+			Assert.IsTrue(failedPercentage < failThreshold, "There are " + failedPercentage + "% failed");
+			int distancePercentage = (100 * totalDistance) / total;
+			Assert.IsTrue(distancePercentage < distanceTreshold, "The distance " + distancePercentage + "% exceeded threshold");
+		}
 
         /// <summary>
         /// Tests all examples for given language pair.
@@ -67,35 +101,28 @@ namespace TestLanguageTools.DataBase
         /// </exception>
         private void TestLanguagePair(string LangId1, string LangId2)
         {
-            // Set the src and dst languages
-            repository.SetSourceLanguage(LangId1);
-            repository.SetDstLanguage(LangId2);
+			// Set the src and dst languages
+			repository.SetSourceLanguage(LangId1);
+			repository.SetDstLanguage(LangId2);
             
             // ****** Read jokers, transliteration rules and transliteration examples
-            transliterator.jokers = repository.GetJokers();
+			transliterator = new Oggy.Transliterator.Transliterator(repository, LangId1, LangId2);
 
-            transliterator.rules = new Dictionary<string, string>();
-            var rules = repository.ListRules();
-            foreach (var rule in rules)
-                transliterator.rules.Add(rule.Source, rule.Destination);
-
-            var examples = repository
-                .ListExamples(true)
-                .ToDictionary(example => example.Source, example => example.Destination);
+			var examples = repository
+				.ListExamples(true)
+				.ToDictionary(example => example.Source, example => example.Destination);
 
             // Test it as it is
             TestPronunciation(examples, LangId1, LangId2);
             
             #region ****** Removing rules **************************
-            //Copy the keys to a buffer array
-            var buffer = new string[transliterator.rules.Count];
-            transliterator.rules.Keys.CopyTo(buffer, 0);
+            //Get all keys
+			var keys = transliterator.Rules.Select(item => item.RawSource).ToList();
 
-            foreach (var key in buffer)
+			foreach (var key in keys)
             {
-                // Store (key, value) pair and remove it
-                string value = transliterator.rules[key];
-                transliterator.rules.Remove(key);
+				var rule = transliterator.Rules[key];
+				transliterator.Rules.Remove(key);
 
                 bool test_succeeded = false;
                 try
@@ -107,64 +134,12 @@ namespace TestLanguageTools.DataBase
                     test_succeeded = true;
                 }
 
-                //Re-add the (key, value) pair
-                transliterator.rules.Add(key, value);
+                //Re-add the rule
+                transliterator.Rules.Add(rule);
 
                 //Test fails if test_succeded has not been set to true
-                Assert.IsTrue(test_succeeded, "(" + LangId1 + "," + LangId2 + ") The rule " + key + "->" + value + " is needless." +
-                    "Either: 1) remove this rule 2) set disable to true or 3) add an example where this rule is applied");
-
-                //if (key.First() == '|')
-                if (true)
-                {
-                    string newKey = key.Substring(1);
-                    if (!transliterator.rules.ContainsKey(newKey))
-                    {
-                        transliterator[newKey] = value;
-                        transliterator[key] = null;
-
-                        test_succeeded = false;
-                        try
-                        {
-                            TestPronunciation(examples);
-                        }
-                        catch (AssertFailedException)
-                        {   // Test succeded!
-                            test_succeeded = true;
-                        }
-
-                        transliterator[key] = value;
-
-                        //Test fails if test_succeded has not been set to true
-                        Assert.IsTrue(test_succeeded, "(" + LangId1 + "," + LangId2 + ") The rule " + key + "->" + value + " can be shortened as " + newKey);
-                    }
-                }
-
-                //if (key.Last() == '|')
-                if (true)
-                {
-                    string newKey = key.Substring(0, key.Length - 1);
-                    if (!transliterator.rules.ContainsKey(newKey))
-                    {
-                        transliterator[newKey] = value;
-                        transliterator[key] = null;
-
-                        test_succeeded = false;
-                        try
-                        {
-                            TestPronunciation(examples);
-                        }
-                        catch (AssertFailedException)
-                        {   // Test succeded!
-                            test_succeeded = true;
-                        }
-
-                        transliterator[key] = value;
-
-                        //Test fails if test_succeded has not been set to true
-                        Assert.IsTrue(test_succeeded, "(" + LangId1 + "," + LangId2 + ") The rule " + key + "->" + value + " can be shortened as " + newKey);
-                    }
-                }
+                Assert.IsTrue(test_succeeded, "(" + LangId1 + "," + LangId2 + ") The rule " + key + "->" + rule.Destination + " is needless. " +
+					"Do one of the following:\n1) remove this rule\n2) set disable to true or\n3) add an example where this rule is applied");
             }
             #endregion
 
@@ -180,8 +155,38 @@ namespace TestLanguageTools.DataBase
             //assumes LoadLanguagePairs() has been called
             foreach (var pair in LanguagePairs)
             {
-                TestLanguagePair(pair.LangId1, pair.LangId2);
-            }
+				TestLanguagePair(pair.LangId1, pair.LangId2);
+			}
         }
-    }
+
+		[TestMethod]
+		public void CroatianToSerbianTest()
+		{
+			TestLanguagePair("HR", "SR");
+		}
+
+		[TestMethod]
+		public void TestENtoSR()
+		{
+			TestPronunciationWithThreshold("EN", "SR", 10, 15);
+		}
+
+		[TestMethod]
+		public void TestDEtoSR()
+		{
+			TestLanguagePair("DE", "SR");
+		}
+
+		[TestMethod]
+		public void TestITtoSR()
+		{
+			TestLanguagePair("IT", "SR");
+		}
+
+		[TestMethod]
+		public void TestEStoSR()
+		{
+			TestLanguagePair("ES", "SR");
+		}
+	}
 }

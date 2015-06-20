@@ -7,7 +7,7 @@ using Oggy.Repository;
 
 namespace Oggy.Transliterator.Rules
 {
-	class RuleCollection : KeyedCollection<string, Rule>
+	public class RuleCollection : KeyedCollection<string, Rule>
 	{
 		public RuleCollection()
 		{

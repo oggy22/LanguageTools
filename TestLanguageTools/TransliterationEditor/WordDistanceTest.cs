@@ -9,7 +9,7 @@ namespace TestLanguageTools.TransliterationEditor
 	{
 		private void test(string s1, string s2, int distanceExpected)
 		{
-			int distanceActual = WordDistance.CalculateDistance(s1, s2);
+			int distanceActual = Oggy.TransliterationEditor.WordDistance.CalculateDistance(s1, s2);
 			Assert.AreEqual(distanceExpected, distanceActual,
 				String.Format("Distance('{0}','{1}')",
 					s1, s2, distanceActual, distanceExpected
