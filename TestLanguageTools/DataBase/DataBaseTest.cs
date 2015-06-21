@@ -147,7 +147,8 @@ namespace TestLanguageTools.DataBase
             //if they all pass, the rule should be wihtout the break
         }
 
-        [TestMethod, Ignore]
+		#region To Serbian
+		[TestMethod, Ignore]
         public void TestAllLanguagePairs()
         {
             LoadLanguagePairs();
@@ -200,5 +201,32 @@ namespace TestLanguageTools.DataBase
 		{
 			TestPronunciationWithThreshold("RU", "SR", 6, 9);
 		}
+		#endregion
+
+		#region From Serbian
+		[TestMethod, TestCategory("Long")]
+		public void TestSRtoDE()
+		{
+			TestLanguagePair("SR", "DE");
+		}
+
+		[TestMethod, TestCategory("Long")]
+		public void TestSRtoEN()
+		{
+			TestLanguagePair("SR", "EN");
+		}
+
+		[TestMethod, TestCategory("Long")]
+		public void TestSRtoES()
+		{
+			TestLanguagePair("SR", "ES");
+		}
+
+		[TestMethod, TestCategory("Long")]
+		public void TestSRtoRU()
+		{
+			TestLanguagePair("SR", "RU");
+		}
+		#endregion
 	}
 }

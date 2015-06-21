@@ -145,8 +145,11 @@ namespace TransliterationEditor
 
             int correct = examplesCollection.Count(example => example.Correct);
             int total = examplesCollection.Count;
+			int totalDistance = examplesCollection.Sum(example => example.Distance);
 			int incorrect = total - correct;
-            MessageBox.Show("There are " + correct + "/" + total + " correct/total examples ratio.\n" + (total-correct) + " incorrect examples (" +  (int)(100 * (double)(incorrect)/total) +"%)");
+            MessageBox.Show("There are " + correct + "/" + total + " correct/total examples ratio.\n"
+				+ (total-correct) + " incorrect examples (" +  (int)(100 * (double)(incorrect)/total) +"%)\n"
+				+ totalDistance + " total distance (" + (int)(100 * (double)(totalDistance)/total) + "%)");
         }
 
         private void checkWithDashes_Click(object sender, RoutedEventArgs e)
