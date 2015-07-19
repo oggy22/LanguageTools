@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Oggy.Repository.Entities;
+using System;
 
 namespace Dictionary
 {
@@ -98,15 +99,25 @@ namespace Dictionary
 		}
 		#endregion
 
+		private bool IsLanguageName(string name)
+		{
+			foreach (string s in name.Split(new char[] { ' ', '/' }, StringSplitOptions.RemoveEmptyEntries))
+			{
+				if (s.Length < 2)
+					return false;
+				if (!char.IsLetter(s[0]))
+					return false;
+				if (!IsLower(s.Substring(1)))
+					return false;
+			}
+			return true;
+		}
+
 		private bool EnableButtonOK()
 		{
 			// Check language name
 			lblLanguage.Foreground = redBrush;
-			if (txtLanguage.Text.Length < 2)
-				return false;
-			if (!char.IsUpper(txtLanguage.Text[0]))
-				return false;
-			if (!IsLower(txtLanguage.Text.Substring(1)))
+			if (!IsLanguageName(txtLanguage.Text))
 				return false;
 			lblLanguage.Foreground = blackBrush;
 

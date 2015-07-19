@@ -83,15 +83,30 @@ namespace Oggy.Repository
 			reader.Close();
 
 			// Load word types
-			cmd = new SqlCommand("SELECT WordType FROM WordTypes WHERE LangId='" + code + "'", connection);
-			reader = cmd.ExecuteReader();
-			language.WordTypes = new HashSet<string>();
+			language.WordTypes = ListWordTypes(code);
+			return language;
+		}
+
+		private HashSet<string> ListWordTypes(string code)
+		{
+			SqlCommand cmd = new SqlCommand("SELECT WordType FROM WordTypes WHERE LangId='" + code + "'", connection);
+			SqlDataReader reader = cmd.ExecuteReader();
+			HashSet<string> wordTypes = new HashSet<string>();
 			while (reader.Read())
 			{
-				language.WordTypes.Add(reader.GetString(0));
+				wordTypes.Add(reader.GetString(0));
 			}
 			reader.Close();
-			return language;
+			return wordTypes;
+		}
+
+		private void AddWordTypes(string code, HashSet<string> wordTypes)
+		{
+			foreach (var s in wordTypes)
+			{
+				SqlCommand cmd = new SqlCommand("INSERT INTO WordTypes (LangId, WordType) Values('"+code + "', N'"+s+"')", connection);
+				cmd.ExecuteNonQuery();
+			}
 		}
 
 		public override void UpdateLanguage(Language language)
@@ -106,6 +121,24 @@ namespace Oggy.Repository
 				+ " WHERE LangId='" + language.Code + "'",
 				connection);
 			cmd.ExecuteNonQuery();
+
+			var wordTypes = ListWordTypes(language.Code);
+			
+			// Add new WordTypes
+			var toAdd = new HashSet<string>(language.WordTypes);
+			toAdd.ExceptWith(wordTypes);
+			AddWordTypes(language.Code, toAdd);
+
+			// Remove old WordTypes
+			var toRemove = new HashSet<string>(language.WordTypes);
+			toRemove.RemoveWhere(s => wordTypes.Contains(s));
+			foreach (var wordType in toRemove)
+			{
+				throw new Exception("Put a break point here and double check");
+				//cmd = new SqlCommand(
+				//	"DELETE FROM WordTypes WHERE LangId='"
+				//	+ language.Code + "' AND WordType=N'" + wordType + "'");
+			}
 		}
 
 		public override bool DeleteLanguage(string code)

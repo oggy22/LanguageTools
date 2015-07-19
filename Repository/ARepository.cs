@@ -52,9 +52,8 @@ namespace Oggy.Repository
         {
             get
             {
-                if (listLaguagesCached == null)
-                    listLaguagesCached = new List<Language>(ListLanguages(true));
-                return listLaguagesCached;
+                return listLaguagesCached ??
+					(listLaguagesCached=new List<Language>(ListLanguages(true)));
             }
         }
         #endregion

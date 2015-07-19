@@ -33,7 +33,7 @@ namespace TestDictionary
 				st += control.Name + "," + control.ClassName + " ";
 				if (control.ClassName == "Uia.Button")
 				{
-					UITestControl ui;
+					//UITestControl ui;
 					//Microsoft.VisualStudio.TestTools.UITesting
 					//Button button = control as Button;
 				}
