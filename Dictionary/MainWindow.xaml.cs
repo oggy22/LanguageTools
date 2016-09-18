@@ -293,8 +293,9 @@ namespace Dictionary
 			{
 				var service = new TranslateService(new BaseClientService.Initializer()
 				{
-					ApiKey = "AIzaSyBLM8SA9YVEDjhx3FoQsedcFlftm1sefBc"
-				});
+					ApiKey = "AIzaSyBLM8SA9YVEDjhx3FoQsedcFlftm1sefBc",
+                    ApplicationName = "Translate API Sample"
+                });
 
 				var response = service.Translations.List(text, "sr").Execute();
 				googleTranslation = response.Translations[0].TranslatedText;
@@ -457,7 +458,7 @@ namespace Dictionary
 		}
 
 		private void txtWord_Changed(object sender, TextChangedEventArgs e)
-		{
+	{
 			if (txtWord.Text.Length == 0)
 				txtTranslation.Text = string.Empty;
 
