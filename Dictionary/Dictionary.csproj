@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dictionary</RootNamespace>
     <AssemblyName>Dictionary</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -82,6 +82,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Dictionary.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.Apis">
@@ -195,7 +198,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -239,14 +244,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Dictionary.ico" />
+    <None Include="settings" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) C:\Users\Ognjen\Desktop\Dictionary
-copy $(TargetPath).config C:\Users\Ognjen\Desktop\Dictionary
-copy $(TargetDir)*.dll C:\Users\Ognjen\Desktop\Dictionary
-copy $(TargetDir)*.pdb C:\Users\Ognjen\Desktop\Dictionary
-if exist $(TargetDir)Dictionary.xml copy $(TargetDir)Dictionary.xml C:\Users\Ognjen\Desktop\Dictionary</PostBuildEvent>
+    <PostBuildEvent>mkdir %25USERPROFILE%25\Desktop\Dictionary
+copy $(TargetPath) %25USERPROFILE%25\Desktop\Dictionary
+copy $(TargetPath).config %25USERPROFILE%25\Desktop\Dictionary
+copy $(TargetDir)*.dll %25USERPROFILE%25\Desktop\Dictionary
+copy $(TargetDir)*.pdb %25USERPROFILE%25\Desktop\Dictionary
+if not exist %25USERPROFILE%25\Desktop\Dictionary\settings copy $(ProjectDir)\settings %25USERPROFILE%25\\Desktop\Dictionary
+if exist $(TargetDir)Dictionary.xml copy $(TargetDir)Dictionary.xml %25USERPROFILE%25\\Desktop\Dictionary</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
