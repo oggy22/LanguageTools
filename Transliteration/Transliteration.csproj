@@ -25,6 +25,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -105,6 +106,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="demos.css" />
+    <Content Include="favicon.ico" />
     <Content Include="jquery-ui.custom.js" />
     <Content Include="jquery.autosize.js" />
     <Content Include="jquery_mini.js" />

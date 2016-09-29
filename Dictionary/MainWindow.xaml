@@ -91,15 +91,25 @@
 			<Button Grid.Row="1" Grid.Column="4" Name="bttnEdit"	Click="Edit_Click" IsEnabled="False">
 				<Label>_Edit</Label>
 			</Button>
-			<Button Grid.Row="1" Grid.Column="5" Name="bttnDelete"	Click="Delete_Click"	IsEnabled="False">
+			<Button Grid.Row="1" Grid.Column="5" Name="bttnDelete"	Click="Delete_Click" IsEnabled="False">
 				<Label>_Delete</Label>
 			</Button>
 
-			<Label Name="label1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="9"/>
-			<Label Name="label2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="9" />
-			<Label Name="label3" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" FontSize="9" />
+            <Label Name="label1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" FontSize="9"/>
+            <Label Name="label2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" FontSize="9" />
+            <Label Name="label3" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="1" FontSize="9" />
 
-			<ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="listBox1"
+            <Button Name="btnCopy1" Click="btnCopy_Click" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" FontSize="9">
+                copy to clipboard
+            </Button>
+            <Button Name="btnCopy2" Click="btnCopy_Click" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="1" FontSize="9">
+                copy to clipboard
+            </Button>
+            <Button Name="btnCopy3" Click="btnCopy_Click" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="1" FontSize="9">
+                copy to clipboard
+            </Button>
+            
+            <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="listBox1"
                      SelectionChanged="listBox1_Selected" MouseDoubleClick="listBox1_DoubleClick" MouseDown="listBox1_MouseDown" />
 			<ListBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="listBox2"
 						SelectionChanged="listBox2_Selected" MouseDoubleClick="listBox2_DoubleClick" MouseDown="listBox2_MouseDown"/>

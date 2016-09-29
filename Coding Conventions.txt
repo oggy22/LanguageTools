@@ -1,0 +1,1 @@
+Use tabs instead of spaces. Tabs can be easily manipulated with. For example you can adjust how many spaces a single tab takes (default=4) by going to Text Editor->All Languages->Tabs
