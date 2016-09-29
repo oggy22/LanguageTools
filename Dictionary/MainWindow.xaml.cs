@@ -2,9 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using Oggy.Repository;
 using Oggy.Repository.Entities;
@@ -595,5 +595,26 @@ namespace Dictionary
 				}
 			}
 		}
-	}
+
+        private void btnCopy_Click(object sender, RoutedEventArgs e)
+        {
+            Button bttn = sender as Button;
+            int number = bttn.Name.Last() - '0';
+            ListBox listBox;
+            switch (number)
+            {
+                case 1: listBox = listBox1; break;
+                case 2: listBox = listBox1; break;
+                case 3: listBox = listBox1; break;
+                default: throw new ArgumentException($"Number {number} is out of 1-3 range");
+            }
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in listBox.Items)
+            {
+                sb.AppendLine(item.ToString());
+            }
+            Clipboard.SetText(sb.ToString());
+        }
+    }
 }
