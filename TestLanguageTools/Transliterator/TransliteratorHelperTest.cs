@@ -1,7 +1,5 @@
-﻿using Oggy;
-using Oggy.Transliterator;
+﻿using Oggy.Transliterator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace TestLanguageTools
 {

@@ -110,11 +110,11 @@
             </Button>
             
             <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="listBox1"
-                     SelectionChanged="listBox1_Selected" MouseDoubleClick="listBox1_DoubleClick" MouseDown="listBox1_MouseDown" />
+                     SelectionChanged="listBox1_Selected" MouseDoubleClick="ListBox1_DoubleClick" MouseDown="listBox1_MouseDown" />
 			<ListBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="listBox2"
-						SelectionChanged="listBox2_Selected" MouseDoubleClick="listBox2_DoubleClick" MouseDown="listBox2_MouseDown"/>
+						SelectionChanged="ListBox2_Selected" MouseDoubleClick="listBox2_DoubleClick" MouseDown="listBox2_MouseDown"/>
 			<ListBox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Name="listBox3"
-						SelectionChanged="listBox3_Selected" MouseDoubleClick="listBox3_DoubleClick" MouseDown="listBox3_MouseDown"/>
+						SelectionChanged="ListBox3_Selected" MouseDoubleClick="listBox3_DoubleClick" MouseDown="listBox3_MouseDown"/>
 		</Grid>
 	</Grid>
 </Window>
